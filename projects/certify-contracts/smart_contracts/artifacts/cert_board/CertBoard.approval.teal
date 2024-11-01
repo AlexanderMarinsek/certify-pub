@@ -1,0 +1,1160 @@
+#pragma version 10
+
+smart_contracts.cert_board.contract.CertBoard.approval_program:
+    txn ApplicationID
+    bnz main_entrypoint@2
+    callsub __init__
+
+main_entrypoint@2:
+    callsub __puya_arc4_router__
+    return
+
+
+// smart_contracts.cert_board.contract.CertBoard.__puya_arc4_router__() -> uint64:
+__puya_arc4_router__:
+    proto 0 1
+    txn NumAppArgs
+    bz __puya_arc4_router___after_if_else@18
+    method "cert_board_deploy()uint64"
+    method "cert_board_key_reg((uint64,uint64,uint64,byte[32],byte[32],byte[64],address),pay)void"
+    method "cert_board_set(address,uint64,uint64,uint64,uint64,uint64,uint64,uint64,uint64)void"
+    method "cert_board_optin_asa(asset,account,pay)void"
+    method "cert_board_withdraw(uint64,uint64)void"
+    method "cert_create(address,byte[1024],pay,txn)void"
+    method "cert_get(address,address)byte[1024]"
+    method "stress_create(uint64,uint64,uint64,pay,txn)uint64"
+    method "stress_end(address,uint64)void"
+    method "stress_get(address,uint64)(uint64,uint64,uint64,uint64,uint64)"
+    method "stress_record(address,uint64)void"
+    method "stress_start(uint64,(uint64,uint64,uint64,byte[32],byte[32],byte[64],address),pay)void"
+    method "stress_unused(address,uint64)void"
+    txna ApplicationArgs 0
+    match __puya_arc4_router___cert_board_deploy_route@2 __puya_arc4_router___cert_board_key_reg_route@3 __puya_arc4_router___cert_board_set_route@4 __puya_arc4_router___cert_board_optin_asa_route@5 __puya_arc4_router___cert_board_withdraw_route@6 __puya_arc4_router___cert_create_route@7 __puya_arc4_router___cert_get_route@8 __puya_arc4_router___stress_create_route@9 __puya_arc4_router___stress_end_route@10 __puya_arc4_router___stress_get_route@11 __puya_arc4_router___stress_record_route@12 __puya_arc4_router___stress_start_route@13 __puya_arc4_router___stress_unused_route@14
+    int 0
+    retsub
+
+__puya_arc4_router___cert_board_deploy_route@2:
+    txn OnCompletion
+    !
+    assert // OnCompletion is NoOp
+    txn ApplicationID
+    !
+    assert // is creating
+    callsub cert_board_deploy
+    byte 0x151f7c75
+    swap
+    concat
+    log
+    int 1
+    retsub
+
+__puya_arc4_router___cert_board_key_reg_route@3:
+    txn OnCompletion
+    !
+    assert // OnCompletion is NoOp
+    txn ApplicationID
+    assert // is not creating
+    txna ApplicationArgs 1
+    txn GroupIndex
+    int 1
+    -
+    dup
+    gtxns TypeEnum
+    int pay
+    ==
+    assert // transaction type is pay
+    callsub cert_board_key_reg
+    int 1
+    retsub
+
+__puya_arc4_router___cert_board_set_route@4:
+    txn OnCompletion
+    !
+    assert // OnCompletion is NoOp
+    txn ApplicationID
+    assert // is not creating
+    txna ApplicationArgs 1
+    txna ApplicationArgs 2
+    btoi
+    txna ApplicationArgs 3
+    btoi
+    txna ApplicationArgs 4
+    btoi
+    txna ApplicationArgs 5
+    btoi
+    txna ApplicationArgs 6
+    btoi
+    txna ApplicationArgs 7
+    btoi
+    txna ApplicationArgs 8
+    btoi
+    txna ApplicationArgs 9
+    btoi
+    callsub cert_board_set
+    int 1
+    retsub
+
+__puya_arc4_router___cert_board_optin_asa_route@5:
+    txn OnCompletion
+    !
+    assert // OnCompletion is NoOp
+    txn ApplicationID
+    assert // is not creating
+    txna ApplicationArgs 1
+    btoi
+    txnas Assets
+    txna ApplicationArgs 2
+    btoi
+    txnas Accounts
+    txn GroupIndex
+    int 1
+    -
+    dup
+    gtxns TypeEnum
+    int pay
+    ==
+    assert // transaction type is pay
+    callsub cert_board_optin_asa
+    int 1
+    retsub
+
+__puya_arc4_router___cert_board_withdraw_route@6:
+    txn OnCompletion
+    !
+    assert // OnCompletion is NoOp
+    txn ApplicationID
+    assert // is not creating
+    txna ApplicationArgs 1
+    btoi
+    txna ApplicationArgs 2
+    btoi
+    callsub cert_board_withdraw
+    int 1
+    retsub
+
+__puya_arc4_router___cert_create_route@7:
+    txn OnCompletion
+    !
+    assert // OnCompletion is NoOp
+    txn ApplicationID
+    assert // is not creating
+    txna ApplicationArgs 1
+    txna ApplicationArgs 2
+    txn GroupIndex
+    int 2
+    -
+    dup
+    gtxns TypeEnum
+    int pay
+    ==
+    assert // transaction type is pay
+    txn GroupIndex
+    int 1
+    -
+    callsub cert_create
+    int 1
+    retsub
+
+__puya_arc4_router___cert_get_route@8:
+    txn OnCompletion
+    !
+    assert // OnCompletion is NoOp
+    txn ApplicationID
+    assert // is not creating
+    txna ApplicationArgs 1
+    txna ApplicationArgs 2
+    callsub cert_get
+    byte 0x151f7c75
+    swap
+    concat
+    log
+    int 1
+    retsub
+
+__puya_arc4_router___stress_create_route@9:
+    txn OnCompletion
+    !
+    assert // OnCompletion is NoOp
+    txn ApplicationID
+    assert // is not creating
+    txna ApplicationArgs 1
+    btoi
+    txna ApplicationArgs 2
+    btoi
+    txna ApplicationArgs 3
+    btoi
+    txn GroupIndex
+    int 2
+    -
+    dup
+    gtxns TypeEnum
+    int pay
+    ==
+    assert // transaction type is pay
+    txn GroupIndex
+    int 1
+    -
+    callsub stress_create
+    byte 0x151f7c75
+    swap
+    concat
+    log
+    int 1
+    retsub
+
+__puya_arc4_router___stress_end_route@10:
+    txn OnCompletion
+    !
+    assert // OnCompletion is NoOp
+    txn ApplicationID
+    assert // is not creating
+    txna ApplicationArgs 1
+    txna ApplicationArgs 2
+    btoi
+    callsub stress_end
+    int 1
+    retsub
+
+__puya_arc4_router___stress_get_route@11:
+    txn OnCompletion
+    !
+    assert // OnCompletion is NoOp
+    txn ApplicationID
+    assert // is not creating
+    txna ApplicationArgs 1
+    txna ApplicationArgs 2
+    btoi
+    callsub stress_get
+    byte 0x151f7c75
+    swap
+    concat
+    log
+    int 1
+    retsub
+
+__puya_arc4_router___stress_record_route@12:
+    txn OnCompletion
+    !
+    assert // OnCompletion is NoOp
+    txn ApplicationID
+    assert // is not creating
+    txna ApplicationArgs 1
+    txna ApplicationArgs 2
+    btoi
+    callsub stress_record
+    int 1
+    retsub
+
+__puya_arc4_router___stress_start_route@13:
+    txn OnCompletion
+    !
+    assert // OnCompletion is NoOp
+    txn ApplicationID
+    assert // is not creating
+    txna ApplicationArgs 1
+    btoi
+    txna ApplicationArgs 2
+    txn GroupIndex
+    int 1
+    -
+    dup
+    gtxns TypeEnum
+    int pay
+    ==
+    assert // transaction type is pay
+    callsub stress_start
+    int 1
+    retsub
+
+__puya_arc4_router___stress_unused_route@14:
+    txn OnCompletion
+    !
+    assert // OnCompletion is NoOp
+    txn ApplicationID
+    assert // is not creating
+    txna ApplicationArgs 1
+    txna ApplicationArgs 2
+    btoi
+    callsub stress_unused
+    int 1
+    retsub
+
+__puya_arc4_router___after_if_else@18:
+    int 0
+    retsub
+
+
+// smart_contracts.cert_board.contract.CertBoard.cert_board_deploy() -> bytes:
+cert_board_deploy:
+    proto 0 1
+    byte "pla_manager"
+    global CreatorAddress
+    app_global_put
+    byte "state"
+    byte 0x01
+    app_global_put
+    global CurrentApplicationID
+    itob
+    retsub
+
+
+// smart_contracts.cert_board.contract.CertBoard.cert_board_key_reg(key_reg_info: bytes, txn: uint64) -> void:
+cert_board_key_reg:
+    proto 2 0
+    txn Sender
+    int 0
+    byte "pla_manager"
+    app_global_get_ex
+    assert // check self.pla_manager exists
+    ==
+    assert // Can only be called by platform manager.
+    frame_dig -1
+    gtxns Receiver
+    global CurrentApplicationAddress
+    ==
+    assert // Transaction must be to this contract.
+    frame_dig -1
+    gtxns Amount
+    itxn_begin
+    frame_dig -2
+    extract 24 32 // on error: Index access is out of bounds
+    frame_dig -2
+    extract 56 32 // on error: Index access is out of bounds
+    frame_dig -2
+    extract 0 8 // on error: Index access is out of bounds
+    btoi
+    frame_dig -2
+    extract 8 8 // on error: Index access is out of bounds
+    btoi
+    frame_dig -2
+    extract 16 8 // on error: Index access is out of bounds
+    btoi
+    frame_dig -2
+    extract 88 64 // on error: Index access is out of bounds
+    frame_dig -2
+    extract 152 32 // on error: Index access is out of bounds
+    itxn_field Sender
+    itxn_field StateProofPK
+    itxn_field VoteKeyDilution
+    itxn_field VoteLast
+    itxn_field VoteFirst
+    itxn_field SelectionPK
+    itxn_field VotePK
+    int keyreg
+    itxn_field TypeEnum
+    itxn_field Fee
+    itxn_submit
+    retsub
+
+
+// smart_contracts.cert_board.contract.CertBoard.cert_board_set(pla_manager: bytes, expected_consensus_rate: uint64, certificate_fee: uint64, stress_test_fee_round: uint64, payment_asset: uint64, max_test_duration: uint64, max_test_blocking: uint64, stake_min: uint64, stake_max: uint64) -> void:
+cert_board_set:
+    proto 9 0
+    txn Sender
+    int 0
+    byte "pla_manager"
+    app_global_get_ex
+    assert // check self.pla_manager exists
+    ==
+    bnz cert_board_set_bool_true@2
+    txn Sender
+    global CreatorAddress
+    ==
+    bz cert_board_set_bool_false@3
+
+cert_board_set_bool_true@2:
+    int 1
+    b cert_board_set_bool_merge@4
+
+cert_board_set_bool_false@3:
+    int 0
+
+cert_board_set_bool_merge@4:
+    assert // Can only be called by platform manager or creator.
+    byte "pla_manager"
+    frame_dig -9
+    app_global_put
+    byte "expected_consensus_rate"
+    frame_dig -8
+    app_global_put
+    byte "certificate_fee"
+    frame_dig -7
+    app_global_put
+    byte "stress_test_fee_round"
+    frame_dig -6
+    app_global_put
+    byte "payment_asset"
+    frame_dig -5
+    app_global_put
+    byte "max_test_duration"
+    frame_dig -4
+    app_global_put
+    byte "max_test_blocking"
+    frame_dig -3
+    app_global_put
+    byte "stake_min"
+    frame_dig -2
+    app_global_put
+    byte "stake_max"
+    frame_dig -1
+    app_global_put
+    int 0
+    byte "stake_min"
+    app_global_get_ex
+    assert // check self.stake_min exists
+    int 0
+    byte "stake_max"
+    app_global_get_ex
+    assert // check self.stake_max exists
+    <
+    assert // Max stake must be larger than min.
+    int 0
+    byte "max_test_duration"
+    app_global_get_ex
+    assert // check self.max_test_duration exists
+    int 0
+    byte "max_test_blocking"
+    app_global_get_ex
+    assert // check self.max_test_blocking exists
+    <
+    assert // Max duration must be smaller than max requests block rounds.
+    frame_dig -5
+    bz cert_board_set_after_if_else@6
+    global CurrentApplicationAddress
+    frame_dig -5
+    asset_holding_get AssetBalance
+    bury 1
+    assert // Not opted into asset.
+
+cert_board_set_after_if_else@6:
+    byte "state"
+    byte 0x02
+    app_global_put
+    retsub
+
+
+// smart_contracts.cert_board.contract.CertBoard.cert_board_optin_asa(asa: uint64, sender: bytes, txn: uint64) -> void:
+cert_board_optin_asa:
+    proto 3 0
+    txn Sender
+    int 0
+    byte "pla_manager"
+    app_global_get_ex
+    assert // check self.pla_manager exists
+    ==
+    assert // Can only be called by platform manager.
+    frame_dig -1
+    gtxns Receiver
+    global CurrentApplicationAddress
+    ==
+    assert // Transaction must be to this contract.
+    frame_dig -1
+    gtxns Amount
+    global AssetOptInMinBalance
+    ==
+    assert // Sent amount doesn't match the MBR increase for opting into an ASA.
+    itxn_begin
+    int 0
+    itxn_field AssetAmount
+    frame_dig -2
+    itxn_field AssetReceiver
+    frame_dig -3
+    itxn_field XferAsset
+    frame_dig -2
+    itxn_field Sender
+    int axfer
+    itxn_field TypeEnum
+    int 0
+    itxn_field Fee
+    itxn_submit
+    retsub
+
+
+// smart_contracts.cert_board.contract.CertBoard.cert_board_withdraw(amount: uint64, asset_id: uint64) -> void:
+cert_board_withdraw:
+    proto 2 0
+    txn Sender
+    int 0
+    byte "pla_manager"
+    app_global_get_ex
+    assert // check self.pla_manager exists
+    ==
+    assert // Can only be called by platform manager.
+    frame_dig -1
+    bz cert_board_withdraw_else_body@3
+    itxn_begin
+    int 0
+    byte "pla_manager"
+    app_global_get_ex
+    assert // check self.pla_manager exists
+    frame_dig -2
+    itxn_field AssetAmount
+    itxn_field AssetReceiver
+    frame_dig -1
+    itxn_field XferAsset
+    int axfer
+    itxn_field TypeEnum
+    int 0
+    itxn_field Fee
+    itxn_submit
+    b cert_board_withdraw_after_if_else@5
+
+cert_board_withdraw_else_body@3:
+    global CurrentApplicationAddress
+    acct_params_get AcctBalance
+    assert // account funded
+    global CurrentApplicationAddress
+    acct_params_get AcctMinBalance
+    assert // account funded
+    -
+    int 0
+    byte "blocked_algo"
+    app_global_get_ex
+    assert // check self.blocked_algo exists
+    -
+    frame_dig -2
+    >=
+    assert // There is not enough available ALGO for withdrawal.
+    itxn_begin
+    int 0
+    byte "pla_manager"
+    app_global_get_ex
+    assert // check self.pla_manager exists
+    frame_dig -2
+    itxn_field Amount
+    itxn_field Receiver
+    int pay
+    itxn_field TypeEnum
+    int 0
+    itxn_field Fee
+    itxn_submit
+
+cert_board_withdraw_after_if_else@5:
+    retsub
+
+
+// smart_contracts.cert_board.contract.CertBoard.cert_create(recipient: bytes, info: bytes, mbr_txn: uint64, txn: uint64) -> void:
+cert_create:
+    proto 4 0
+    int 0
+    byte "state"
+    app_global_get_ex
+    assert // check self.state exists
+    byte 0x02
+    ==
+    assert // Cannot be called from other state than LIVE.
+    global CurrentApplicationAddress
+    acct_params_get AcctMinBalance
+    assert // account funded
+    frame_dig -4
+    txn Sender
+    concat
+    frame_dig -3
+    box_put
+    global CurrentApplicationAddress
+    acct_params_get AcctMinBalance
+    assert // account funded
+    swap
+    -
+    frame_dig -2
+    gtxns Receiver
+    global CurrentApplicationAddress
+    ==
+    assert // Transaction must be to this contract.
+    frame_dig -2
+    gtxns Amount
+    ==
+    assert // Sent amount doesn't match the agreed one.
+    frame_dig -1
+    gtxns TypeEnum
+    dup
+    int pay
+    ==
+    bz cert_create_else_body@2
+    int 0
+    byte "payment_asset"
+    app_global_get_ex
+    assert // check self.payment_asset exists
+    !
+    assert // Sent asset doesn't match the agreed one.
+    frame_dig -1
+    gtxns Receiver
+    global CurrentApplicationAddress
+    ==
+    assert // Transaction must be to this contract.
+    frame_dig -1
+    gtxns Amount
+    int 0
+    byte "certificate_fee"
+    app_global_get_ex
+    assert // check self.certificate_fee exists
+    ==
+    assert // Sent amount doesn't match the agreed one.
+    b cert_create_after_if_else@6
+
+cert_create_else_body@2:
+    frame_dig 0
+    int axfer
+    ==
+    assert // Transaction type must be either Payment or AssetTransfer.
+    int 0
+    byte "payment_asset"
+    app_global_get_ex
+    assert // check self.payment_asset exists
+    frame_dig -1
+    gtxns XferAsset
+    ==
+    assert // Sent asset doesn't match the agreed one.
+    frame_dig -1
+    gtxns AssetReceiver
+    global CurrentApplicationAddress
+    ==
+    assert // Transaction must be to this contract.
+    frame_dig -1
+    gtxns AssetAmount
+    int 0
+    byte "certificate_fee"
+    app_global_get_ex
+    assert // check self.certificate_fee exists
+    ==
+    assert // Sent amount doesn't match the agreed one.
+
+cert_create_after_if_else@6:
+    retsub
+
+
+// smart_contracts.cert_board.contract.CertBoard.cert_get(recipient: bytes, issuer: bytes) -> bytes:
+cert_get:
+    proto 2 1
+    int 0
+    byte "state"
+    app_global_get_ex
+    assert // check self.state exists
+    byte 0x02
+    ==
+    assert // Cannot be called from other state than LIVE.
+    frame_dig -2
+    frame_dig -1
+    concat
+    box_get
+    assert // check Box exists
+    retsub
+
+
+// smart_contracts.cert_board.contract.CertBoard.stress_create(stake: uint64, duration: uint64, duration_max: uint64, algo_txn: uint64, txn: uint64) -> bytes:
+stress_create:
+    proto 5 1
+    int 0
+    byte "state"
+    app_global_get_ex
+    assert // check self.state exists
+    byte 0x02
+    ==
+    assert // Cannot be called from other state than LIVE.
+    int 0
+    byte "stake_max"
+    app_global_get_ex
+    assert // check self.stake_max exists
+    frame_dig -5
+    >
+    assert // Requested stake for the stress test is larger than allowed.
+    int 0
+    byte "stake_min"
+    app_global_get_ex
+    assert // check self.stake_min exists
+    frame_dig -5
+    <
+    assert // Requested stake for the stress test is smaller than allowed.
+    global CurrentApplicationAddress
+    acct_params_get AcctMinBalance
+    assert // account funded
+    txn Sender
+    itxn_begin
+    int 0
+    byte "pla_manager"
+    app_global_get_ex
+    assert // check self.pla_manager exists
+    frame_dig -5
+    itob
+    frame_dig -4
+    itob
+    frame_dig -3
+    itob
+    int 12
+    itxn_field GlobalNumUint
+    int 3
+    itxn_field GlobalNumByteSlice
+    byte base64 CoEBQw==
+    itxn_field ClearStateProgramPages
+    byte base64 CiAEAAEFqr2DFCYTC3JvdW5kX2VuZGVkBXN0YXRlCXJvdW5kX2VuZAhkdXJhdGlvbgVzdGFrZRNjbnRfcHJvZHVjZWRfYmxvY2tzD3RvdGFsX3N0YWtlX3N1bRNjbnRfdG90YWxfc3Rha2Vfc3VtDXJvdW5kX2VuZF9tYXgMdXNlcl9hZGRyZXNzDGR1cmF0aW9uX21heA1yb3VuZF9jcmVhdGVkC3JvdW5kX3N0YXJ0Cmxhc3RfYmxvY2sEFR98dQ1vd25lcl9hZGRyZXNzAQEBAgEAMRhAAAOIAt2IAAFDigABMRtBAJ+CBQRqpvmIBF3yoBwErmNCBASGJqYWBHWx3UA2GgCOBQACACYAQgBXAGMiiTEZFEQxGBRENhoBNhoCNhoDFzYaBBc2GgUXiABYJw5MULAjiTEZFEQxGEQ2GgE2GgIxFiMJSTgQIxJEiACTI4kxGSQSRDEYRDYaAYgBNicOTFCwI4kxGRREMRhEiAHCI4kxGSQSRDEYRIgCAScOTFCwI4kiiYoFAScJi/tnJw+L/GcnBIv9ZyuL/mcnCov/ZyiBgMLXL2cnBSJnJwYlZycHI2cpJxBnJwsyBmciJwtlRCInCmVECCcITGciK2VEIicKZUQMRCIrZUQjDUQyCBaJigMAMQAyCRJEIillRCcQEkQiJwllRIv9EkQyBiIrZUQIKkxnIiplRCInCGVEDESL/zgHMgoSRCInBGVEi/84CBJEMgYjCCcMTGciJwxlRCcNTGeL/lcACBciJwtlREsBEkSL/lcICBciJwhlREsBEkSL/leYIEkyChJEsYv+VxggTIv+Vzggi/5XEAgXi/5XWEBPA7IAsj+yDk8Csg1PArIMsguyCoECshAisgGzKScRZ4mKAQExADIJEkQiKWVEJxESRCgyBmciJw9lRIv/EkEAFCIoZUQiKmVEDEEABCJCABAjQgAMIihlRCIqZUQMFEQjsTIJSbIJIrIIsgcjshAisgGzIicGZUQiJwdlRAonEiJPA1RMFiInBWVEFiInDGVEFiIqZUQWIihlRBYiJwRlRBYiJwllRE8HTwdQTwZQTwVQTwRQTwNQTwJQTFCJigAAIillRCcREkQyBiIoZUQMRDIGIiplREsBDUQiJw1lREsBDEQiJwVlRCMIJwVMZycNTGciJwZlRCUIJwZMZyInB2VEIwgnB0xniYoAATEAMgkSRCIpZUQnEBJEMgYiK2VECCInCGVEDUSxMglJsgkisgiyByOyECKyAbMiJwRlRBaJigAAJwkyA2cnDzIDZycEImcrImcnCiJnJwsiZycMImcqImcoImcnCCJnJw0iZycFImcnBiJnJwcjZyknEmeJ
+    itxn_field ApprovalProgramPages
+    method "create(address,address,uint64,uint64,uint64)uint64"
+    itxn_field ApplicationArgs
+    uncover 4
+    itxn_field ApplicationArgs
+    uncover 3
+    itxn_field ApplicationArgs
+    uncover 2
+    itxn_field ApplicationArgs
+    swap
+    itxn_field ApplicationArgs
+    itxn_field ApplicationArgs
+    int appl
+    itxn_field TypeEnum
+    int 0
+    itxn_field Fee
+    itxn_submit
+    itxn LastLog
+    dup
+    extract 4 0
+    swap
+    extract 0 4
+    byte 0x151f7c75
+    ==
+    assert // ARC4 prefix is valid
+    int 0
+    byte "stress_test_fee_round"
+    app_global_get_ex
+    assert // check self.stress_test_fee_round exists
+    frame_dig -3
+    *
+    frame_dig -1
+    gtxns TypeEnum
+    dup
+    cover 2
+    int pay
+    ==
+    bz stress_create_else_body@3
+    int 0
+    byte "payment_asset"
+    app_global_get_ex
+    assert // check self.payment_asset exists
+    !
+    assert // Sent asset doesn't match the agreed one.
+    frame_dig -1
+    gtxns Receiver
+    global CurrentApplicationAddress
+    ==
+    assert // Transaction must be to this contract.
+    frame_dig -1
+    gtxns Amount
+    ==
+    assert // Sent amount doesn't match the agreed one.
+    b stress_create_after_if_else@7
+
+stress_create_else_body@3:
+    frame_dig 2
+    int axfer
+    ==
+    assert // Transaction type must be either Payment or AssetTransfer.
+    int 0
+    byte "payment_asset"
+    app_global_get_ex
+    assert // check self.payment_asset exists
+    frame_dig -1
+    gtxns XferAsset
+    ==
+    assert // Sent asset doesn't match the agreed one.
+    frame_dig -1
+    gtxns AssetReceiver
+    global CurrentApplicationAddress
+    ==
+    assert // Transaction must be to this contract.
+    frame_dig -1
+    gtxns AssetAmount
+    ==
+    assert // Sent amount doesn't match the agreed one.
+
+stress_create_after_if_else@7:
+    int 0
+    byte "expected_consensus_rate"
+    app_global_get_ex
+    assert // check self.expected_consensus_rate exists
+    frame_dig -5
+    *
+    frame_dig -3
+    *
+    global CurrentApplicationAddress
+    acct_params_get AcctMinBalance
+    assert // account funded
+    frame_dig 0
+    -
+    dig 1
+    +
+    frame_dig -2
+    gtxns Receiver
+    global CurrentApplicationAddress
+    ==
+    assert // Transaction must be to this contract.
+    frame_dig -2
+    gtxns Amount
+    ==
+    assert // Sent amount doesn't match the agreed one.
+    int 0
+    byte "blocked_algo"
+    app_global_get_ex
+    assert // check self.blocked_algo exists
+    global CurrentApplicationAddress
+    acct_params_get AcctBalance
+    assert // account funded
+    global CurrentApplicationAddress
+    acct_params_get AcctMinBalance
+    assert // account funded
+    -
+    <
+    assert
+    int 0
+    byte "blocked_algo"
+    app_global_get_ex
+    assert // check self.blocked_algo exists
+    frame_dig -5
+    uncover 2
+    +
+    +
+    byte "blocked_algo"
+    swap
+    app_global_put
+    frame_dig 1
+    frame_bury 0
+    retsub
+
+
+// smart_contracts.cert_board.contract.CertBoard.stress_end(user_address: bytes, stress_test_id: uint64) -> void:
+stress_end:
+    proto 2 0
+    int 0
+    byte "state"
+    app_global_get_ex
+    assert // check self.state exists
+    byte 0x02
+    ==
+    assert // Cannot be called from other state than LIVE.
+    frame_dig -1
+    itob
+    frame_dig -2
+    swap
+    concat
+    dupn 2
+    box_len
+    bury 1
+    assert // User address and stress test ID combination are not found at the platform.
+    box_get
+    assert // check self.stress_tests entry exists
+    callsub _get_stress_test_info_init
+    ==
+    assert // Stress test has already finished.
+    itxn_begin
+    txn Sender
+    int DeleteApplication
+    itxn_field OnCompletion
+    frame_dig -1
+    itxn_field ApplicationID
+    method "end(address)(bool,uint64,uint64,uint64,uint64,uint64,uint64,address)"
+    itxn_field ApplicationArgs
+    itxn_field ApplicationArgs
+    int appl
+    itxn_field TypeEnum
+    int 0
+    itxn_field Fee
+    itxn_submit
+    itxn LastLog
+    dup
+    extract 4 0
+    dup
+    cover 2
+    cover 3
+    extract 0 4
+    byte 0x151f7c75
+    ==
+    assert // ARC4 prefix is valid
+    int 0
+    byte "blocked_algo"
+    app_global_get_ex
+    assert // check self.blocked_algo exists
+    dig 1
+    extract 41 8 // on error: Index access is out of bounds
+    dup
+    cover 4
+    btoi
+    -
+    byte "blocked_algo"
+    swap
+    app_global_put
+    int 0
+    getbit
+    byte 0x00
+    int 0
+    uncover 2
+    setbit
+    byte 0x00
+    !=
+    bz stress_end_else_body@3
+    frame_dig 0
+    dup
+    extract 1 8 // on error: Index access is out of bounds
+    swap
+    dup
+    extract 9 8 // on error: Index access is out of bounds
+    swap
+    dup
+    extract 17 8 // on error: Index access is out of bounds
+    cover 2
+    extract 25 8 // on error: Index access is out of bounds
+    cover 3
+    uncover 2
+    swap
+    concat
+    swap
+    concat
+    swap
+    concat
+    frame_dig 1
+    concat
+    box_put
+    b stress_end_after_if_else@4
+
+stress_end_else_body@3:
+    box_del
+    assert
+
+stress_end_after_if_else@4:
+    retsub
+
+
+// smart_contracts.cert_board.contract._get_stress_test_info_init() -> bytes:
+_get_stress_test_info_init:
+    proto 0 1
+    byte 0x00000000000000000000000000000000000000000000000000000000000000000000000000000000
+    retsub
+
+
+// smart_contracts.cert_board.contract.CertBoard.stress_get(recipient: bytes, stress_test_id: uint64) -> bytes:
+stress_get:
+    proto 2 1
+    int 0
+    byte "state"
+    app_global_get_ex
+    assert // check self.state exists
+    byte 0x02
+    ==
+    assert // Cannot be called from other state than LIVE.
+    frame_dig -1
+    itob
+    frame_dig -2
+    swap
+    concat
+    box_get
+    assert // check self.stress_tests entry exists
+    retsub
+
+
+// smart_contracts.cert_board.contract.CertBoard.stress_record(user_address: bytes, stress_test_id: uint64) -> void:
+stress_record:
+    proto 2 0
+    int 0
+    byte "state"
+    app_global_get_ex
+    assert // check self.state exists
+    byte 0x02
+    ==
+    assert // Cannot be called from other state than LIVE.
+    frame_dig -1
+    itob
+    frame_dig -2
+    swap
+    concat
+    dup
+    box_len
+    bury 1
+    assert // User address and stress test ID combination are not found at the platform.
+    box_get
+    assert // check self.stress_tests entry exists
+    callsub _get_stress_test_info_init
+    ==
+    assert // Stress test has already finished.
+    itxn_begin
+    frame_dig -1
+    itxn_field ApplicationID
+    method "record()void"
+    itxn_field ApplicationArgs
+    int appl
+    itxn_field TypeEnum
+    int 0
+    itxn_field Fee
+    itxn_submit
+    retsub
+
+
+// smart_contracts.cert_board.contract.CertBoard.stress_start(stress_test_id: uint64, key_reg_info: bytes, mbr_txn: uint64) -> void:
+stress_start:
+    proto 3 0
+    int 0
+    byte "state"
+    app_global_get_ex
+    assert // check self.state exists
+    byte 0x02
+    ==
+    assert // Cannot be called from other state than LIVE.
+    global CurrentApplicationAddress
+    acct_params_get AcctMinBalance
+    assert // account funded
+    txn Sender
+    frame_dig -3
+    byte 0x757365725f61646472657373
+    app_global_get_ex
+    assert
+    dig 1
+    ==
+    assert
+    frame_dig -3
+    app_params_get AppCreator
+    assert // application exists
+    global CurrentApplicationAddress
+    ==
+    assert
+    frame_dig -3
+    itob
+    dig 1
+    swap
+    concat
+    callsub _get_stress_test_info_init
+    box_put
+    frame_dig -3
+    byte 0x7374616b65
+    app_global_get_ex
+    assert
+    frame_dig -3
+    app_params_get AppAddress
+    assert // application exists
+    itxn_begin
+    itxn_field Receiver
+    itxn_field Amount
+    int pay
+    itxn_field TypeEnum
+    int 0
+    itxn_field Fee
+    itxn_next
+    frame_dig -3
+    itxn_field ApplicationID
+    method "start(address,(uint64,uint64,uint64,byte[32],byte[32],byte[64],address),pay)void"
+    itxn_field ApplicationArgs
+    itxn_field ApplicationArgs
+    frame_dig -2
+    itxn_field ApplicationArgs
+    int appl
+    itxn_field TypeEnum
+    int 0
+    itxn_field Fee
+    itxn_submit
+    global CurrentApplicationAddress
+    acct_params_get AcctMinBalance
+    assert // account funded
+    swap
+    -
+    frame_dig -1
+    gtxns Receiver
+    global CurrentApplicationAddress
+    ==
+    assert // Transaction must be to this contract.
+    frame_dig -1
+    gtxns Amount
+    ==
+    assert // Sent amount doesn't match the agreed one.
+    retsub
+
+
+// smart_contracts.cert_board.contract.CertBoard.stress_unused(user_address: bytes, stress_test_id: uint64) -> void:
+stress_unused:
+    proto 2 0
+    int 0
+    byte "state"
+    app_global_get_ex
+    assert // check self.state exists
+    byte 0x02
+    ==
+    assert // Cannot be called from other state than LIVE.
+    txn Sender
+    frame_bury -2
+    frame_dig -1
+    byte 0x757365725f61646472657373
+    app_global_get_ex
+    assert
+    frame_dig -2
+    ==
+    assert
+    frame_dig -1
+    app_params_get AppCreator
+    assert // application exists
+    global CurrentApplicationAddress
+    ==
+    assert
+    itxn_begin
+    int DeleteApplication
+    itxn_field OnCompletion
+    frame_dig -1
+    itxn_field ApplicationID
+    method "unused()uint64"
+    itxn_field ApplicationArgs
+    int appl
+    itxn_field TypeEnum
+    int 0
+    itxn_field Fee
+    itxn_submit
+    itxn LastLog
+    dup
+    extract 4 0
+    swap
+    extract 0 4
+    byte 0x151f7c75
+    ==
+    assert // ARC4 prefix is valid
+    int 0
+    byte "blocked_algo"
+    app_global_get_ex
+    assert // check self.blocked_algo exists
+    swap
+    btoi
+    -
+    byte "blocked_algo"
+    swap
+    app_global_put
+    retsub
+
+
+// smart_contracts.cert_board.contract.CertBoard.__init__() -> void:
+__init__:
+    proto 0 0
+    byte "pla_manager"
+    global ZeroAddress
+    app_global_put
+    byte "expected_consensus_rate"
+    int 0
+    app_global_put
+    byte "certificate_fee"
+    int 0
+    app_global_put
+    byte "stress_test_fee_round"
+    int 0
+    app_global_put
+    byte "payment_asset"
+    int 0
+    app_global_put
+    byte "max_test_duration"
+    int 0
+    app_global_put
+    byte "max_test_blocking"
+    int 0
+    app_global_put
+    byte "stake_min"
+    int 0
+    app_global_put
+    byte "stake_max"
+    int 0
+    app_global_put
+    byte "blocked_algo"
+    int 0
+    app_global_put
+    byte "state"
+    byte 0x00
+    app_global_put
+    retsub

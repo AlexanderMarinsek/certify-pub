@@ -1,0 +1,290 @@
+{
+    "hints": {
+        "create(address,address,uint64,uint64,uint64)uint64": {
+            "call_config": {
+                "no_op": "CREATE"
+            }
+        },
+        "start(address,(uint64,uint64,uint64,byte[32],byte[32],byte[64],address),pay)void": {
+            "call_config": {
+                "no_op": "CALL"
+            },
+            "structs": {
+                "key_reg_info": {
+                    "name": "KeyRegTxnInfo",
+                    "elements": [
+                        [
+                            "vote_first",
+                            "uint64"
+                        ],
+                        [
+                            "vote_last",
+                            "uint64"
+                        ],
+                        [
+                            "vote_key_dilution",
+                            "uint64"
+                        ],
+                        [
+                            "vote_pk",
+                            "byte[32]"
+                        ],
+                        [
+                            "selection_pk",
+                            "byte[32]"
+                        ],
+                        [
+                            "state_proof_pk",
+                            "byte[64]"
+                        ],
+                        [
+                            "sender",
+                            "address"
+                        ]
+                    ]
+                }
+            }
+        },
+        "end(address)(bool,uint64,uint64,uint64,uint64,uint64,uint64,address)": {
+            "call_config": {
+                "delete_application": "CALL"
+            },
+            "structs": {
+                "output": {
+                    "name": "ReturnStressTestingEnd",
+                    "elements": [
+                        [
+                            "success",
+                            "bool"
+                        ],
+                        [
+                            "avr_online_stake",
+                            "uint64"
+                        ],
+                        [
+                            "cnt_produced_block",
+                            "uint64"
+                        ],
+                        [
+                            "round_start",
+                            "uint64"
+                        ],
+                        [
+                            "round_end",
+                            "uint64"
+                        ],
+                        [
+                            "round_ended",
+                            "uint64"
+                        ],
+                        [
+                            "stake",
+                            "uint64"
+                        ],
+                        [
+                            "user_address",
+                            "address"
+                        ]
+                    ]
+                }
+            }
+        },
+        "record()void": {
+            "call_config": {
+                "no_op": "CALL"
+            }
+        },
+        "unused()uint64": {
+            "call_config": {
+                "delete_application": "CALL"
+            }
+        }
+    },
+    "source": {
+        "approval": "I3ByYWdtYSB2ZXJzaW9uIDEwCgpzbWFydF9jb250cmFjdHMuc3RyZXNzX3Rlc3RpbmcuY29udHJhY3QuU3RyZXNzVGVzdGluZy5hcHByb3ZhbF9wcm9ncmFtOgogICAgdHhuIEFwcGxpY2F0aW9uSUQKICAgIGJueiBtYWluX2VudHJ5cG9pbnRAMgogICAgY2FsbHN1YiBfX2luaXRfXwoKbWFpbl9lbnRyeXBvaW50QDI6CiAgICBjYWxsc3ViIF9fcHV5YV9hcmM0X3JvdXRlcl9fCiAgICByZXR1cm4KCgovLyBzbWFydF9jb250cmFjdHMuc3RyZXNzX3Rlc3RpbmcuY29udHJhY3QuU3RyZXNzVGVzdGluZy5fX3B1eWFfYXJjNF9yb3V0ZXJfXygpIC0+IHVpbnQ2NDoKX19wdXlhX2FyYzRfcm91dGVyX186CiAgICBwcm90byAwIDEKICAgIHR4biBOdW1BcHBBcmdzCiAgICBieiBfX3B1eWFfYXJjNF9yb3V0ZXJfX19hZnRlcl9pZl9lbHNlQDEwCiAgICBtZXRob2QgImNyZWF0ZShhZGRyZXNzLGFkZHJlc3MsdWludDY0LHVpbnQ2NCx1aW50NjQpdWludDY0IgogICAgbWV0aG9kICJzdGFydChhZGRyZXNzLCh1aW50NjQsdWludDY0LHVpbnQ2NCxieXRlWzMyXSxieXRlWzMyXSxieXRlWzY0XSxhZGRyZXNzKSxwYXkpdm9pZCIKICAgIG1ldGhvZCAiZW5kKGFkZHJlc3MpKGJvb2wsdWludDY0LHVpbnQ2NCx1aW50NjQsdWludDY0LHVpbnQ2NCx1aW50NjQsYWRkcmVzcykiCiAgICBtZXRob2QgInJlY29yZCgpdm9pZCIKICAgIG1ldGhvZCAidW51c2VkKCl1aW50NjQiCiAgICB0eG5hIEFwcGxpY2F0aW9uQXJncyAwCiAgICBtYXRjaCBfX3B1eWFfYXJjNF9yb3V0ZXJfX19jcmVhdGVfcm91dGVAMiBfX3B1eWFfYXJjNF9yb3V0ZXJfX19zdGFydF9yb3V0ZUAzIF9fcHV5YV9hcmM0X3JvdXRlcl9fX2VuZF9yb3V0ZUA0IF9fcHV5YV9hcmM0X3JvdXRlcl9fX3JlY29yZF9yb3V0ZUA1IF9fcHV5YV9hcmM0X3JvdXRlcl9fX3VudXNlZF9yb3V0ZUA2CiAgICBpbnQgMAogICAgcmV0c3ViCgpfX3B1eWFfYXJjNF9yb3V0ZXJfX19jcmVhdGVfcm91dGVAMjoKICAgIHR4biBPbkNvbXBsZXRpb24KICAgICEKICAgIGFzc2VydCAvLyBPbkNvbXBsZXRpb24gaXMgTm9PcAogICAgdHhuIEFwcGxpY2F0aW9uSUQKICAgICEKICAgIGFzc2VydCAvLyBpcyBjcmVhdGluZwogICAgdHhuYSBBcHBsaWNhdGlvbkFyZ3MgMQogICAgdHhuYSBBcHBsaWNhdGlvbkFyZ3MgMgogICAgdHhuYSBBcHBsaWNhdGlvbkFyZ3MgMwogICAgYnRvaQogICAgdHhuYSBBcHBsaWNhdGlvbkFyZ3MgNAogICAgYnRvaQogICAgdHhuYSBBcHBsaWNhdGlvbkFyZ3MgNQogICAgYnRvaQogICAgY2FsbHN1YiBjcmVhdGUKICAgIGJ5dGUgMHgxNTFmN2M3NQogICAgc3dhcAogICAgY29uY2F0CiAgICBsb2cKICAgIGludCAxCiAgICByZXRzdWIKCl9fcHV5YV9hcmM0X3JvdXRlcl9fX3N0YXJ0X3JvdXRlQDM6CiAgICB0eG4gT25Db21wbGV0aW9uCiAgICAhCiAgICBhc3NlcnQgLy8gT25Db21wbGV0aW9uIGlzIE5vT3AKICAgIHR4biBBcHBsaWNhdGlvbklECiAgICBhc3NlcnQgLy8gaXMgbm90IGNyZWF0aW5nCiAgICB0eG5hIEFwcGxpY2F0aW9uQXJncyAxCiAgICB0eG5hIEFwcGxpY2F0aW9uQXJncyAyCiAgICB0eG4gR3JvdXBJbmRleAogICAgaW50IDEKICAgIC0KICAgIGR1cAogICAgZ3R4bnMgVHlwZUVudW0KICAgIGludCBwYXkKICAgID09CiAgICBhc3NlcnQgLy8gdHJhbnNhY3Rpb24gdHlwZSBpcyBwYXkKICAgIGNhbGxzdWIgc3RhcnQKICAgIGludCAxCiAgICByZXRzdWIKCl9fcHV5YV9hcmM0X3JvdXRlcl9fX2VuZF9yb3V0ZUA0OgogICAgdHhuIE9uQ29tcGxldGlvbgogICAgaW50IERlbGV0ZUFwcGxpY2F0aW9uCiAgICA9PQogICAgYXNzZXJ0IC8vIE9uQ29tcGxldGlvbiBpcyBEZWxldGVBcHBsaWNhdGlvbgogICAgdHhuIEFwcGxpY2F0aW9uSUQKICAgIGFzc2VydCAvLyBpcyBub3QgY3JlYXRpbmcKICAgIHR4bmEgQXBwbGljYXRpb25BcmdzIDEKICAgIGNhbGxzdWIgZW5kCiAgICBieXRlIDB4MTUxZjdjNzUKICAgIHN3YXAKICAgIGNvbmNhdAogICAgbG9nCiAgICBpbnQgMQogICAgcmV0c3ViCgpfX3B1eWFfYXJjNF9yb3V0ZXJfX19yZWNvcmRfcm91dGVANToKICAgIHR4biBPbkNvbXBsZXRpb24KICAgICEKICAgIGFzc2VydCAvLyBPbkNvbXBsZXRpb24gaXMgTm9PcAogICAgdHhuIEFwcGxpY2F0aW9uSUQKICAgIGFzc2VydCAvLyBpcyBub3QgY3JlYXRpbmcKICAgIGNhbGxzdWIgcmVjb3JkCiAgICBpbnQgMQogICAgcmV0c3ViCgpfX3B1eWFfYXJjNF9yb3V0ZXJfX191bnVzZWRfcm91dGVANjoKICAgIHR4biBPbkNvbXBsZXRpb24KICAgIGludCBEZWxldGVBcHBsaWNhdGlvbgogICAgPT0KICAgIGFzc2VydCAvLyBPbkNvbXBsZXRpb24gaXMgRGVsZXRlQXBwbGljYXRpb24KICAgIHR4biBBcHBsaWNhdGlvbklECiAgICBhc3NlcnQgLy8gaXMgbm90IGNyZWF0aW5nCiAgICBjYWxsc3ViIHVudXNlZAogICAgYnl0ZSAweDE1MWY3Yzc1CiAgICBzd2FwCiAgICBjb25jYXQKICAgIGxvZwogICAgaW50IDEKICAgIHJldHN1YgoKX19wdXlhX2FyYzRfcm91dGVyX19fYWZ0ZXJfaWZfZWxzZUAxMDoKICAgIGludCAwCiAgICByZXRzdWIKCgovLyBzbWFydF9jb250cmFjdHMuc3RyZXNzX3Rlc3RpbmcuY29udHJhY3QuU3RyZXNzVGVzdGluZy5jcmVhdGUodXNlcl9hZGRyZXNzOiBieXRlcywgb3duZXJfYWRkcmVzczogYnl0ZXMsIHN0YWtlOiB1aW50NjQsIGR1cmF0aW9uOiB1aW50NjQsIGR1cmF0aW9uX21heDogdWludDY0KSAtPiBieXRlczoKY3JlYXRlOgogICAgcHJvdG8gNSAxCiAgICBieXRlICJ1c2VyX2FkZHJlc3MiCiAgICBmcmFtZV9kaWcgLTUKICAgIGFwcF9nbG9iYWxfcHV0CiAgICBieXRlICJvd25lcl9hZGRyZXNzIgogICAgZnJhbWVfZGlnIC00CiAgICBhcHBfZ2xvYmFsX3B1dAogICAgYnl0ZSAic3Rha2UiCiAgICBmcmFtZV9kaWcgLTMKICAgIGFwcF9nbG9iYWxfcHV0CiAgICBieXRlICJkdXJhdGlvbiIKICAgIGZyYW1lX2RpZyAtMgogICAgYXBwX2dsb2JhbF9wdXQKICAgIGJ5dGUgImR1cmF0aW9uX21heCIKICAgIGZyYW1lX2RpZyAtMQogICAgYXBwX2dsb2JhbF9wdXQKICAgIGJ5dGUgInJvdW5kX2VuZGVkIgogICAgaW50IDEwMDAwMDAwMAogICAgYXBwX2dsb2JhbF9wdXQKICAgIGJ5dGUgImNudF9wcm9kdWNlZF9ibG9ja3MiCiAgICBpbnQgMAogICAgYXBwX2dsb2JhbF9wdXQKICAgIGJ5dGUgInRvdGFsX3N0YWtlX3N1bSIKICAgIGludCA0MjAwMDA0MgogICAgYXBwX2dsb2JhbF9wdXQKICAgIGJ5dGUgImNudF90b3RhbF9zdGFrZV9zdW0iCiAgICBpbnQgMQogICAgYXBwX2dsb2JhbF9wdXQKICAgIGJ5dGUgInN0YXRlIgogICAgYnl0ZSAweDAxCiAgICBhcHBfZ2xvYmFsX3B1dAogICAgYnl0ZSAicm91bmRfY3JlYXRlZCIKICAgIGdsb2JhbCBSb3VuZAogICAgYXBwX2dsb2JhbF9wdXQKICAgIGludCAwCiAgICBieXRlICJyb3VuZF9jcmVhdGVkIgogICAgYXBwX2dsb2JhbF9nZXRfZXgKICAgIGFzc2VydCAvLyBjaGVjayBzZWxmLnJvdW5kX2NyZWF0ZWQgZXhpc3RzCiAgICBpbnQgMAogICAgYnl0ZSAiZHVyYXRpb25fbWF4IgogICAgYXBwX2dsb2JhbF9nZXRfZXgKICAgIGFzc2VydCAvLyBjaGVjayBzZWxmLmR1cmF0aW9uX21heCBleGlzdHMKICAgICsKICAgIGJ5dGUgInJvdW5kX2VuZF9tYXgiCiAgICBzd2FwCiAgICBhcHBfZ2xvYmFsX3B1dAogICAgaW50IDAKICAgIGJ5dGUgImR1cmF0aW9uIgogICAgYXBwX2dsb2JhbF9nZXRfZXgKICAgIGFzc2VydCAvLyBjaGVjayBzZWxmLmR1cmF0aW9uIGV4aXN0cwogICAgaW50IDAKICAgIGJ5dGUgImR1cmF0aW9uX21heCIKICAgIGFwcF9nbG9iYWxfZ2V0X2V4CiAgICBhc3NlcnQgLy8gY2hlY2sgc2VsZi5kdXJhdGlvbl9tYXggZXhpc3RzCiAgICA8CiAgICBhc3NlcnQgLy8gTWF4aW11bSBlbmQgcm91bmQgbXVzdCBiZSBsYXJnZXIgdGhhbiByZXF1ZXN0ZWQgZHVyYXRpb24uCiAgICBpbnQgMAogICAgYnl0ZSAiZHVyYXRpb24iCiAgICBhcHBfZ2xvYmFsX2dldF9leAogICAgYXNzZXJ0IC8vIGNoZWNrIHNlbGYuZHVyYXRpb24gZXhpc3RzCiAgICBpbnQgMQogICAgPgogICAgYXNzZXJ0IC8vIER1cmF0aW9uIGlzIHRvbyBzaG9ydCBkdWUgdG8gY29uc2Vuc3VzIGRlbGF5LgogICAgZ2xvYmFsIEN1cnJlbnRBcHBsaWNhdGlvbklECiAgICBpdG9iCiAgICByZXRzdWIKCgovLyBzbWFydF9jb250cmFjdHMuc3RyZXNzX3Rlc3RpbmcuY29udHJhY3QuU3RyZXNzVGVzdGluZy5zdGFydCh1c2VyX2FkZHJlc3M6IGJ5dGVzLCBrZXlfcmVnX2luZm86IGJ5dGVzLCB0eG46IHVpbnQ2NCkgLT4gdm9pZDoKc3RhcnQ6CiAgICBwcm90byAzIDAKICAgIHR4biBTZW5kZXIKICAgIGdsb2JhbCBDcmVhdG9yQWRkcmVzcwogICAgPT0KICAgIGFzc2VydCAvLyBDYW4gb25seSBiZSBjYWxsZWQgYnkgc21hcnQgY29udHJhY3QgY3JlYXRvci4KICAgIGludCAwCiAgICBieXRlICJzdGF0ZSIKICAgIGFwcF9nbG9iYWxfZ2V0X2V4CiAgICBhc3NlcnQgLy8gY2hlY2sgc2VsZi5zdGF0ZSBleGlzdHMKICAgIGJ5dGUgMHgwMQogICAgPT0KICAgIGFzc2VydCAvLyBDYW5ub3QgYmUgY2FsbGVkIGZyb20gb3RoZXIgc3RhdGUgdGhhbiBDUkVBVEVELgogICAgaW50IDAKICAgIGJ5dGUgInVzZXJfYWRkcmVzcyIKICAgIGFwcF9nbG9iYWxfZ2V0X2V4CiAgICBhc3NlcnQgLy8gY2hlY2sgc2VsZi51c2VyX2FkZHJlc3MgZXhpc3RzCiAgICBmcmFtZV9kaWcgLTMKICAgID09CiAgICBhc3NlcnQgLy8gVXNlciBkb2VzIG5vdCBtYXRjaCB0aGUgc3RyZXNzIHRlc3QgdXNlci4KICAgIGdsb2JhbCBSb3VuZAogICAgaW50IDAKICAgIGJ5dGUgImR1cmF0aW9uIgogICAgYXBwX2dsb2JhbF9nZXRfZXgKICAgIGFzc2VydCAvLyBjaGVjayBzZWxmLmR1cmF0aW9uIGV4aXN0cwogICAgKwogICAgYnl0ZSAicm91bmRfZW5kIgogICAgc3dhcAogICAgYXBwX2dsb2JhbF9wdXQKICAgIGludCAwCiAgICBieXRlICJyb3VuZF9lbmQiCiAgICBhcHBfZ2xvYmFsX2dldF9leAogICAgYXNzZXJ0IC8vIGNoZWNrIHNlbGYucm91bmRfZW5kIGV4aXN0cwogICAgaW50IDAKICAgIGJ5dGUgInJvdW5kX2VuZF9tYXgiCiAgICBhcHBfZ2xvYmFsX2dldF9leAogICAgYXNzZXJ0IC8vIGNoZWNrIHNlbGYucm91bmRfZW5kX21heCBleGlzdHMKICAgIDwKICAgIGFzc2VydCAvLyBUZXN0IHdhcyBub3Qgc3RhcnRlZCBzb29uIGVub3VnaC4KICAgIGZyYW1lX2RpZyAtMQogICAgZ3R4bnMgUmVjZWl2ZXIKICAgIGdsb2JhbCBDdXJyZW50QXBwbGljYXRpb25BZGRyZXNzCiAgICA9PQogICAgYXNzZXJ0IC8vIFRyYW5zYWN0aW9uIG11c3QgYmUgdG8gdGhpcyBjb250cmFjdC4KICAgIGludCAwCiAgICBieXRlICJzdGFrZSIKICAgIGFwcF9nbG9iYWxfZ2V0X2V4CiAgICBhc3NlcnQgLy8gY2hlY2sgc2VsZi5zdGFrZSBleGlzdHMKICAgIGZyYW1lX2RpZyAtMQogICAgZ3R4bnMgQW1vdW50CiAgICA9PQogICAgYXNzZXJ0IC8vIFNlbnQgYW1vdW50IGRvZXNuJ3QgbWF0Y2ggdGhlIGFncmVlZCBvbmUuCiAgICBnbG9iYWwgUm91bmQKICAgIGludCAxCiAgICArCiAgICBieXRlICJyb3VuZF9zdGFydCIKICAgIHN3YXAKICAgIGFwcF9nbG9iYWxfcHV0CiAgICBpbnQgMAogICAgYnl0ZSAicm91bmRfc3RhcnQiCiAgICBhcHBfZ2xvYmFsX2dldF9leAogICAgYXNzZXJ0IC8vIGNoZWNrIHNlbGYucm91bmRfc3RhcnQgZXhpc3RzCiAgICBieXRlICJsYXN0X2Jsb2NrIgogICAgc3dhcAogICAgYXBwX2dsb2JhbF9wdXQKICAgIGZyYW1lX2RpZyAtMgogICAgZXh0cmFjdCAwIDggLy8gb24gZXJyb3I6IEluZGV4IGFjY2VzcyBpcyBvdXQgb2YgYm91bmRzCiAgICBidG9pCiAgICBpbnQgMAogICAgYnl0ZSAicm91bmRfY3JlYXRlZCIKICAgIGFwcF9nbG9iYWxfZ2V0X2V4CiAgICBhc3NlcnQgLy8gY2hlY2sgc2VsZi5yb3VuZF9jcmVhdGVkIGV4aXN0cwogICAgZGlnIDEKICAgID09CiAgICBhc3NlcnQKICAgIGZyYW1lX2RpZyAtMgogICAgZXh0cmFjdCA4IDggLy8gb24gZXJyb3I6IEluZGV4IGFjY2VzcyBpcyBvdXQgb2YgYm91bmRzCiAgICBidG9pCiAgICBpbnQgMAogICAgYnl0ZSAicm91bmRfZW5kX21heCIKICAgIGFwcF9nbG9iYWxfZ2V0X2V4CiAgICBhc3NlcnQgLy8gY2hlY2sgc2VsZi5yb3VuZF9lbmRfbWF4IGV4aXN0cwogICAgZGlnIDEKICAgID09CiAgICBhc3NlcnQKICAgIGZyYW1lX2RpZyAtMgogICAgZXh0cmFjdCAxNTIgMzIgLy8gb24gZXJyb3I6IEluZGV4IGFjY2VzcyBpcyBvdXQgb2YgYm91bmRzCiAgICBkdXAKICAgIGdsb2JhbCBDdXJyZW50QXBwbGljYXRpb25BZGRyZXNzCiAgICA9PQogICAgYXNzZXJ0CiAgICBpdHhuX2JlZ2luCiAgICBmcmFtZV9kaWcgLTIKICAgIGV4dHJhY3QgMjQgMzIgLy8gb24gZXJyb3I6IEluZGV4IGFjY2VzcyBpcyBvdXQgb2YgYm91bmRzCiAgICBzd2FwCiAgICBmcmFtZV9kaWcgLTIKICAgIGV4dHJhY3QgNTYgMzIgLy8gb24gZXJyb3I6IEluZGV4IGFjY2VzcyBpcyBvdXQgb2YgYm91bmRzCiAgICBmcmFtZV9kaWcgLTIKICAgIGV4dHJhY3QgMTYgOCAvLyBvbiBlcnJvcjogSW5kZXggYWNjZXNzIGlzIG91dCBvZiBib3VuZHMKICAgIGJ0b2kKICAgIGZyYW1lX2RpZyAtMgogICAgZXh0cmFjdCA4OCA2NCAvLyBvbiBlcnJvcjogSW5kZXggYWNjZXNzIGlzIG91dCBvZiBib3VuZHMKICAgIHVuY292ZXIgMwogICAgaXR4bl9maWVsZCBTZW5kZXIKICAgIGl0eG5fZmllbGQgU3RhdGVQcm9vZlBLCiAgICBpdHhuX2ZpZWxkIFZvdGVLZXlEaWx1dGlvbgogICAgdW5jb3ZlciAyCiAgICBpdHhuX2ZpZWxkIFZvdGVMYXN0CiAgICB1bmNvdmVyIDIKICAgIGl0eG5fZmllbGQgVm90ZUZpcnN0CiAgICBpdHhuX2ZpZWxkIFNlbGVjdGlvblBLCiAgICBpdHhuX2ZpZWxkIFZvdGVQSwogICAgaW50IGtleXJlZwogICAgaXR4bl9maWVsZCBUeXBlRW51bQogICAgaW50IDAKICAgIGl0eG5fZmllbGQgRmVlCiAgICBpdHhuX3N1Ym1pdAogICAgYnl0ZSAic3RhdGUiCiAgICBieXRlIDB4MDIKICAgIGFwcF9nbG9iYWxfcHV0CiAgICByZXRzdWIKCgovLyBzbWFydF9jb250cmFjdHMuc3RyZXNzX3Rlc3RpbmcuY29udHJhY3QuU3RyZXNzVGVzdGluZy5lbmQodXNlcl9hZGRyZXNzOiBieXRlcykgLT4gYnl0ZXM6CmVuZDoKICAgIHByb3RvIDEgMQogICAgdHhuIFNlbmRlcgogICAgZ2xvYmFsIENyZWF0b3JBZGRyZXNzCiAgICA9PQogICAgYXNzZXJ0IC8vIENhbiBvbmx5IGJlIGNhbGxlZCBieSBzbWFydCBjb250cmFjdCBjcmVhdG9yLgogICAgaW50IDAKICAgIGJ5dGUgInN0YXRlIgogICAgYXBwX2dsb2JhbF9nZXRfZXgKICAgIGFzc2VydCAvLyBjaGVjayBzZWxmLnN0YXRlIGV4aXN0cwogICAgYnl0ZSAweDAyCiAgICA9PQogICAgYXNzZXJ0IC8vIENhbm5vdCBiZSBjYWxsZWQgZnJvbSBvdGhlciBzdGF0ZSB0aGFuIExJVkUuCiAgICBieXRlICJyb3VuZF9lbmRlZCIKICAgIGdsb2JhbCBSb3VuZAogICAgYXBwX2dsb2JhbF9wdXQKICAgIGludCAwCiAgICBieXRlICJvd25lcl9hZGRyZXNzIgogICAgYXBwX2dsb2JhbF9nZXRfZXgKICAgIGFzc2VydCAvLyBjaGVjayBzZWxmLm93bmVyX2FkZHJlc3MgZXhpc3RzCiAgICBmcmFtZV9kaWcgLTEKICAgID09CiAgICBieiBlbmRfZWxzZV9ib2R5QDUKICAgIGludCAwCiAgICBieXRlICJyb3VuZF9lbmRlZCIKICAgIGFwcF9nbG9iYWxfZ2V0X2V4CiAgICBhc3NlcnQgLy8gY2hlY2sgc2VsZi5yb3VuZF9lbmRlZCBleGlzdHMKICAgIGludCAwCiAgICBieXRlICJyb3VuZF9lbmQiCiAgICBhcHBfZ2xvYmFsX2dldF9leAogICAgYXNzZXJ0IC8vIGNoZWNrIHNlbGYucm91bmRfZW5kIGV4aXN0cwogICAgPAogICAgYnogZW5kX2Vsc2VfYm9keUAzCiAgICBpbnQgMAogICAgYiBlbmRfYWZ0ZXJfaWZfZWxzZUA5CgplbmRfZWxzZV9ib2R5QDM6CiAgICBpbnQgMQogICAgYiBlbmRfYWZ0ZXJfaWZfZWxzZUA5CgplbmRfZWxzZV9ib2R5QDU6CiAgICBpbnQgMAogICAgYnl0ZSAicm91bmRfZW5kZWQiCiAgICBhcHBfZ2xvYmFsX2dldF9leAogICAgYXNzZXJ0IC8vIGNoZWNrIHNlbGYucm91bmRfZW5kZWQgZXhpc3RzCiAgICBpbnQgMAogICAgYnl0ZSAicm91bmRfZW5kIgogICAgYXBwX2dsb2JhbF9nZXRfZXgKICAgIGFzc2VydCAvLyBjaGVjayBzZWxmLnJvdW5kX2VuZCBleGlzdHMKICAgIDwKICAgICEKICAgIGFzc2VydCAvLyBUaGlzIGFjY291bnQgaXMgbm90IGFsbG93ZWQgdG8gdGVybWluYXRlIHRoZSB0ZXN0LgogICAgaW50IDEKCmVuZF9hZnRlcl9pZl9lbHNlQDk6CiAgICBpdHhuX2JlZ2luCiAgICBnbG9iYWwgQ3JlYXRvckFkZHJlc3MKICAgIGR1cAogICAgaXR4bl9maWVsZCBDbG9zZVJlbWFpbmRlclRvCiAgICBpbnQgMAogICAgaXR4bl9maWVsZCBBbW91bnQKICAgIGl0eG5fZmllbGQgUmVjZWl2ZXIKICAgIGludCBwYXkKICAgIGl0eG5fZmllbGQgVHlwZUVudW0KICAgIGludCAwCiAgICBpdHhuX2ZpZWxkIEZlZQogICAgaXR4bl9zdWJtaXQKICAgIGludCAwCiAgICBieXRlICJ0b3RhbF9zdGFrZV9zdW0iCiAgICBhcHBfZ2xvYmFsX2dldF9leAogICAgYXNzZXJ0IC8vIGNoZWNrIHNlbGYudG90YWxfc3Rha2Vfc3VtIGV4aXN0cwogICAgaW50IDAKICAgIGJ5dGUgImNudF90b3RhbF9zdGFrZV9zdW0iCiAgICBhcHBfZ2xvYmFsX2dldF9leAogICAgYXNzZXJ0IC8vIGNoZWNrIHNlbGYuY250X3RvdGFsX3N0YWtlX3N1bSBleGlzdHMKICAgIC8KICAgIGJ5dGUgMHgwMAogICAgaW50IDAKICAgIHVuY292ZXIgMwogICAgc2V0Yml0CiAgICBzd2FwCiAgICBpdG9iCiAgICBpbnQgMAogICAgYnl0ZSAiY250X3Byb2R1Y2VkX2Jsb2NrcyIKICAgIGFwcF9nbG9iYWxfZ2V0X2V4CiAgICBhc3NlcnQgLy8gY2hlY2sgc2VsZi5jbnRfcHJvZHVjZWRfYmxvY2tzIGV4aXN0cwogICAgaXRvYgogICAgaW50IDAKICAgIGJ5dGUgInJvdW5kX3N0YXJ0IgogICAgYXBwX2dsb2JhbF9nZXRfZXgKICAgIGFzc2VydCAvLyBjaGVjayBzZWxmLnJvdW5kX3N0YXJ0IGV4aXN0cwogICAgaXRvYgogICAgaW50IDAKICAgIGJ5dGUgInJvdW5kX2VuZCIKICAgIGFwcF9nbG9iYWxfZ2V0X2V4CiAgICBhc3NlcnQgLy8gY2hlY2sgc2VsZi5yb3VuZF9lbmQgZXhpc3RzCiAgICBpdG9iCiAgICBpbnQgMAogICAgYnl0ZSAicm91bmRfZW5kZWQiCiAgICBhcHBfZ2xvYmFsX2dldF9leAogICAgYXNzZXJ0IC8vIGNoZWNrIHNlbGYucm91bmRfZW5kZWQgZXhpc3RzCiAgICBpdG9iCiAgICBpbnQgMAogICAgYnl0ZSAic3Rha2UiCiAgICBhcHBfZ2xvYmFsX2dldF9leAogICAgYXNzZXJ0IC8vIGNoZWNrIHNlbGYuc3Rha2UgZXhpc3RzCiAgICBpdG9iCiAgICBpbnQgMAogICAgYnl0ZSAidXNlcl9hZGRyZXNzIgogICAgYXBwX2dsb2JhbF9nZXRfZXgKICAgIGFzc2VydCAvLyBjaGVjayBzZWxmLnVzZXJfYWRkcmVzcyBleGlzdHMKICAgIHVuY292ZXIgNwogICAgdW5jb3ZlciA3CiAgICBjb25jYXQKICAgIHVuY292ZXIgNgogICAgY29uY2F0CiAgICB1bmNvdmVyIDUKICAgIGNvbmNhdAogICAgdW5jb3ZlciA0CiAgICBjb25jYXQKICAgIHVuY292ZXIgMwogICAgY29uY2F0CiAgICB1bmNvdmVyIDIKICAgIGNvbmNhdAogICAgc3dhcAogICAgY29uY2F0CiAgICByZXRzdWIKCgovLyBzbWFydF9jb250cmFjdHMuc3RyZXNzX3Rlc3RpbmcuY29udHJhY3QuU3RyZXNzVGVzdGluZy5yZWNvcmQoKSAtPiB2b2lkOgpyZWNvcmQ6CiAgICBwcm90byAwIDAKICAgIGludCAwCiAgICBieXRlICJzdGF0ZSIKICAgIGFwcF9nbG9iYWxfZ2V0X2V4CiAgICBhc3NlcnQgLy8gY2hlY2sgc2VsZi5zdGF0ZSBleGlzdHMKICAgIGJ5dGUgMHgwMgogICAgPT0KICAgIGFzc2VydCAvLyBDYW5ub3QgYmUgY2FsbGVkIGZyb20gb3RoZXIgc3RhdGUgdGhhbiBMSVZFLgogICAgZ2xvYmFsIFJvdW5kCiAgICBpbnQgMAogICAgYnl0ZSAicm91bmRfZW5kZWQiCiAgICBhcHBfZ2xvYmFsX2dldF9leAogICAgYXNzZXJ0IC8vIGNoZWNrIHNlbGYucm91bmRfZW5kZWQgZXhpc3RzCiAgICA8CiAgICBhc3NlcnQKICAgIGdsb2JhbCBSb3VuZAogICAgaW50IDAKICAgIGJ5dGUgInJvdW5kX2VuZCIKICAgIGFwcF9nbG9iYWxfZ2V0X2V4CiAgICBhc3NlcnQgLy8gY2hlY2sgc2VsZi5yb3VuZF9lbmQgZXhpc3RzCiAgICBkaWcgMQogICAgPgogICAgYXNzZXJ0IC8vIEJsb2NrcyBwcm9kdWNlZCBhZnRlciB0ZXN0IGVuZCBzaG91bGRuJ3QgYmUgY291bnRlZC4KICAgIGludCAwCiAgICBieXRlICJsYXN0X2Jsb2NrIgogICAgYXBwX2dsb2JhbF9nZXRfZXgKICAgIGFzc2VydCAvLyBjaGVjayBzZWxmLmxhc3RfYmxvY2sgZXhpc3RzCiAgICBkaWcgMQogICAgPAogICAgYXNzZXJ0IC8vIFRoZXJlIGlzIG5vIG5ldyBwcm9kdWNlZCBibG9jayB0byByZWNvcmQuCiAgICBpbnQgMAogICAgYnl0ZSAiY250X3Byb2R1Y2VkX2Jsb2NrcyIKICAgIGFwcF9nbG9iYWxfZ2V0X2V4CiAgICBhc3NlcnQgLy8gY2hlY2sgc2VsZi5jbnRfcHJvZHVjZWRfYmxvY2tzIGV4aXN0cwogICAgaW50IDEKICAgICsKICAgIGJ5dGUgImNudF9wcm9kdWNlZF9ibG9ja3MiCiAgICBzd2FwCiAgICBhcHBfZ2xvYmFsX3B1dAogICAgYnl0ZSAibGFzdF9ibG9jayIKICAgIHN3YXAKICAgIGFwcF9nbG9iYWxfcHV0CiAgICBpbnQgMAogICAgYnl0ZSAidG90YWxfc3Rha2Vfc3VtIgogICAgYXBwX2dsb2JhbF9nZXRfZXgKICAgIGFzc2VydCAvLyBjaGVjayBzZWxmLnRvdGFsX3N0YWtlX3N1bSBleGlzdHMKICAgIGludCA0MjAwMDA0MgogICAgKwogICAgYnl0ZSAidG90YWxfc3Rha2Vfc3VtIgogICAgc3dhcAogICAgYXBwX2dsb2JhbF9wdXQKICAgIGludCAwCiAgICBieXRlICJjbnRfdG90YWxfc3Rha2Vfc3VtIgogICAgYXBwX2dsb2JhbF9nZXRfZXgKICAgIGFzc2VydCAvLyBjaGVjayBzZWxmLmNudF90b3RhbF9zdGFrZV9zdW0gZXhpc3RzCiAgICBpbnQgMQogICAgKwogICAgYnl0ZSAiY250X3RvdGFsX3N0YWtlX3N1bSIKICAgIHN3YXAKICAgIGFwcF9nbG9iYWxfcHV0CiAgICByZXRzdWIKCgovLyBzbWFydF9jb250cmFjdHMuc3RyZXNzX3Rlc3RpbmcuY29udHJhY3QuU3RyZXNzVGVzdGluZy51bnVzZWQoKSAtPiBieXRlczoKdW51c2VkOgogICAgcHJvdG8gMCAxCiAgICB0eG4gU2VuZGVyCiAgICBnbG9iYWwgQ3JlYXRvckFkZHJlc3MKICAgID09CiAgICBhc3NlcnQgLy8gQ2FuIG9ubHkgYmUgY2FsbGVkIGJ5IHNtYXJ0IGNvbnRyYWN0IGNyZWF0b3IuCiAgICBpbnQgMAogICAgYnl0ZSAic3RhdGUiCiAgICBhcHBfZ2xvYmFsX2dldF9leAogICAgYXNzZXJ0IC8vIGNoZWNrIHNlbGYuc3RhdGUgZXhpc3RzCiAgICBieXRlIDB4MDEKICAgID09CiAgICBhc3NlcnQgLy8gQ2Fubm90IGJlIGNhbGxlZCBmcm9tIG90aGVyIHN0YXRlIHRoYW4gQ1JFQVRFRC4KICAgIGdsb2JhbCBSb3VuZAogICAgaW50IDAKICAgIGJ5dGUgImR1cmF0aW9uIgogICAgYXBwX2dsb2JhbF9nZXRfZXgKICAgIGFzc2VydCAvLyBjaGVjayBzZWxmLmR1cmF0aW9uIGV4aXN0cwogICAgKwogICAgaW50IDAKICAgIGJ5dGUgInJvdW5kX2VuZF9tYXgiCiAgICBhcHBfZ2xvYmFsX2dldF9leAogICAgYXNzZXJ0IC8vIGNoZWNrIHNlbGYucm91bmRfZW5kX21heCBleGlzdHMKICAgID4KICAgIGFzc2VydCAvLyBDYW5ub3QgY2xhaW0gdGhlIHRlc3QgYXMgdW51c2VkIGJlY2F1c2UgdGhlcmUgaXMgc3RpbGwgZW5vdWdoIHRpbWUgdG8gZmluaXNoIGl0LgogICAgaXR4bl9iZWdpbgogICAgZ2xvYmFsIENyZWF0b3JBZGRyZXNzCiAgICBkdXAKICAgIGl0eG5fZmllbGQgQ2xvc2VSZW1haW5kZXJUbwogICAgaW50IDAKICAgIGl0eG5fZmllbGQgQW1vdW50CiAgICBpdHhuX2ZpZWxkIFJlY2VpdmVyCiAgICBpbnQgcGF5CiAgICBpdHhuX2ZpZWxkIFR5cGVFbnVtCiAgICBpbnQgMAogICAgaXR4bl9maWVsZCBGZWUKICAgIGl0eG5fc3VibWl0CiAgICBpbnQgMAogICAgYnl0ZSAic3Rha2UiCiAgICBhcHBfZ2xvYmFsX2dldF9leAogICAgYXNzZXJ0IC8vIGNoZWNrIHNlbGYuc3Rha2UgZXhpc3RzCiAgICBpdG9iCiAgICByZXRzdWIKCgovLyBzbWFydF9jb250cmFjdHMuc3RyZXNzX3Rlc3RpbmcuY29udHJhY3QuU3RyZXNzVGVzdGluZy5fX2luaXRfXygpIC0+IHZvaWQ6Cl9faW5pdF9fOgogICAgcHJvdG8gMCAwCiAgICBieXRlICJ1c2VyX2FkZHJlc3MiCiAgICBnbG9iYWwgWmVyb0FkZHJlc3MKICAgIGFwcF9nbG9iYWxfcHV0CiAgICBieXRlICJvd25lcl9hZGRyZXNzIgogICAgZ2xvYmFsIFplcm9BZGRyZXNzCiAgICBhcHBfZ2xvYmFsX3B1dAogICAgYnl0ZSAic3Rha2UiCiAgICBpbnQgMAogICAgYXBwX2dsb2JhbF9wdXQKICAgIGJ5dGUgImR1cmF0aW9uIgogICAgaW50IDAKICAgIGFwcF9nbG9iYWxfcHV0CiAgICBieXRlICJkdXJhdGlvbl9tYXgiCiAgICBpbnQgMAogICAgYXBwX2dsb2JhbF9wdXQKICAgIGJ5dGUgInJvdW5kX2NyZWF0ZWQiCiAgICBpbnQgMAogICAgYXBwX2dsb2JhbF9wdXQKICAgIGJ5dGUgInJvdW5kX3N0YXJ0IgogICAgaW50IDAKICAgIGFwcF9nbG9iYWxfcHV0CiAgICBieXRlICJyb3VuZF9lbmQiCiAgICBpbnQgMAogICAgYXBwX2dsb2JhbF9wdXQKICAgIGJ5dGUgInJvdW5kX2VuZGVkIgogICAgaW50IDAKICAgIGFwcF9nbG9iYWxfcHV0CiAgICBieXRlICJyb3VuZF9lbmRfbWF4IgogICAgaW50IDAKICAgIGFwcF9nbG9iYWxfcHV0CiAgICBieXRlICJsYXN0X2Jsb2NrIgogICAgaW50IDAKICAgIGFwcF9nbG9iYWxfcHV0CiAgICBieXRlICJjbnRfcHJvZHVjZWRfYmxvY2tzIgogICAgaW50IDAKICAgIGFwcF9nbG9iYWxfcHV0CiAgICBieXRlICJ0b3RhbF9zdGFrZV9zdW0iCiAgICBpbnQgMAogICAgYXBwX2dsb2JhbF9wdXQKICAgIGJ5dGUgImNudF90b3RhbF9zdGFrZV9zdW0iCiAgICBpbnQgMQogICAgYXBwX2dsb2JhbF9wdXQKICAgIGJ5dGUgInN0YXRlIgogICAgYnl0ZSAweDAwCiAgICBhcHBfZ2xvYmFsX3B1dAogICAgcmV0c3ViCg==",
+        "clear": "I3ByYWdtYSB2ZXJzaW9uIDEwCgpzbWFydF9jb250cmFjdHMuc3RyZXNzX3Rlc3RpbmcuY29udHJhY3QuU3RyZXNzVGVzdGluZy5jbGVhcl9zdGF0ZV9wcm9ncmFtOgogICAgaW50IDEKICAgIHJldHVybgo="
+    },
+    "state": {
+        "global": {
+            "num_byte_slices": 3,
+            "num_uints": 12
+        },
+        "local": {
+            "num_byte_slices": 0,
+            "num_uints": 0
+        }
+    },
+    "schema": {
+        "global": {
+            "declared": {
+                "cnt_produced_blocks": {
+                    "type": "uint64",
+                    "key": "cnt_produced_blocks"
+                },
+                "cnt_total_stake_sum": {
+                    "type": "uint64",
+                    "key": "cnt_total_stake_sum"
+                },
+                "duration": {
+                    "type": "uint64",
+                    "key": "duration"
+                },
+                "duration_max": {
+                    "type": "uint64",
+                    "key": "duration_max"
+                },
+                "last_block": {
+                    "type": "uint64",
+                    "key": "last_block"
+                },
+                "owner_address": {
+                    "type": "bytes",
+                    "key": "owner_address"
+                },
+                "round_created": {
+                    "type": "uint64",
+                    "key": "round_created"
+                },
+                "round_end": {
+                    "type": "uint64",
+                    "key": "round_end"
+                },
+                "round_end_max": {
+                    "type": "uint64",
+                    "key": "round_end_max"
+                },
+                "round_ended": {
+                    "type": "uint64",
+                    "key": "round_ended"
+                },
+                "round_start": {
+                    "type": "uint64",
+                    "key": "round_start"
+                },
+                "stake": {
+                    "type": "uint64",
+                    "key": "stake"
+                },
+                "state": {
+                    "type": "bytes",
+                    "key": "state"
+                },
+                "total_stake_sum": {
+                    "type": "uint64",
+                    "key": "total_stake_sum"
+                },
+                "user_address": {
+                    "type": "bytes",
+                    "key": "user_address"
+                }
+            },
+            "reserved": {}
+        },
+        "local": {
+            "declared": {},
+            "reserved": {}
+        }
+    },
+    "contract": {
+        "name": "StressTesting",
+        "desc": "\n    Escrow to be put online for the stress test by the user.\n    It allows counting of produced blocks.\n\n    Global state\n    ------------\n\n    user_address : arc4.Address\n        Account of user that requested the test.\n    owner_address : arc4.Address\n        Account of owner of the funds used in the stress test.\n\n    stake : UInt64\n        Amount of stake used in the stress test.\n        The value is expressed in microALGO.\n\n    duration : UInt64\n        Number of rounds for the stress test.\n        The actual duration of the block recording is 320 rounds shorter due to consensus trailing.\n    duration_max : UInt64\n        Maximum number of rounds allocated for the test, i.e. blocking of funds.\n        This is to take into account key generation time after the stress testing contract has been created.\n    round_created : UInt64\n        Round number when the request for the stress test is created.\n    round_start : UInt64\n        Round number when the actual participation in consensus starts.\n    round_end : UInt64\n        Round number when test should end.\n    round_ended : UInt64\n        Round number at which the contract ended.\n        Can be smaller than round_end in case of early test termination.\n    round_end_max : UInt64\n        Round number by which the stress test will be completed at the latest.\n\n    last_block : UInt64\n        Last block number that this contract account produced.\n    cnt_produced_blocks : UInt64\n        Counter of produced blocks.\n\n    total_stake_sum : UInt64\n        Sum for calculating the average of total online stake during the test.\n    cnt_total_stake_sum : UInt64\n        Counter for calculating the average of total online stake during the test.\n\n    state : Bytes\n        State of the contract. Can be one of the following:\n            CREATED - contract has been created.\n            LIVE - contract is live.\n\n    Methods\n    -------\n    create(\n        user_address: arc4.Address,\n        owner_address: arc4.Address,\n        stake: UInt64,\n        duration: UInt64,\n        round_end_max: UInt64,\n    ) -> arc4.UInt64:\n        Creates a new contract for stress testing.\n\n    start(\n        user_address: arc4.Address,\n        key_reg_info: KeyRegTxnInfo,\n        txn: gtxn.PaymentTransaction,\n    ) -> None:\n        Starts the stress test.\n\n    end(\n        user_address: arc4.Address,\n    ) -> ReturnStressTestingEnd:\n        Ends the stress test.\n\n    record(\n    ) -> None:\n        Records a produced block during the stress test.\n\n    unused(\n    ) -> None:\n        Records a produced block during the stress test.\n\n\n    ",
+        "methods": [
+            {
+                "name": "create",
+                "args": [
+                    {
+                        "type": "address",
+                        "name": "user_address",
+                        "desc": "Account of user that requested the test."
+                    },
+                    {
+                        "type": "address",
+                        "name": "owner_address",
+                        "desc": "Account of owner of the funds used in the stress test."
+                    },
+                    {
+                        "type": "uint64",
+                        "name": "stake",
+                        "desc": "Amount of stake used in the stress test. The value is expressed in microALGO."
+                    },
+                    {
+                        "type": "uint64",
+                        "name": "duration",
+                        "desc": "Number of rounds for the stress test. The actual duration of the block recording is 320 rounds shorter due to consensus trailing."
+                    },
+                    {
+                        "type": "uint64",
+                        "name": "duration_max",
+                        "desc": "Maximum number of rounds allocated for the test, i.e. blocking of funds. This is to take into account key generation time after the stress testing contract has been created."
+                    }
+                ],
+                "readonly": false,
+                "returns": {
+                    "type": "uint64",
+                    "desc": "App ID of the created application."
+                },
+                "desc": "Creates a new contract for stress testing."
+            },
+            {
+                "name": "start",
+                "args": [
+                    {
+                        "type": "address",
+                        "name": "user_address",
+                        "desc": "Account of user that requested the test."
+                    },
+                    {
+                        "type": "(uint64,uint64,uint64,byte[32],byte[32],byte[64],address)",
+                        "name": "key_reg_info",
+                        "desc": "Key registration information to use."
+                    },
+                    {
+                        "type": "pay",
+                        "name": "txn",
+                        "desc": "Payment transaction for transfer of the requested stake and for covering the fee for reward registration."
+                    }
+                ],
+                "readonly": false,
+                "returns": {
+                    "type": "void"
+                },
+                "desc": "Starts the stress test."
+            },
+            {
+                "name": "end",
+                "args": [
+                    {
+                        "type": "address",
+                        "name": "user_address",
+                        "desc": "Account that requested the test to end."
+                    }
+                ],
+                "readonly": false,
+                "returns": {
+                    "type": "(bool,uint64,uint64,uint64,uint64,uint64,uint64,address)"
+                },
+                "desc": "Ends the stress test."
+            },
+            {
+                "name": "record",
+                "args": [],
+                "readonly": false,
+                "returns": {
+                    "type": "void"
+                },
+                "desc": "Records a produced block during the stress test."
+            },
+            {
+                "name": "unused",
+                "args": [],
+                "readonly": false,
+                "returns": {
+                    "type": "uint64"
+                },
+                "desc": "Records a produced block during the stress test."
+            }
+        ],
+        "networks": {}
+    },
+    "bare_call_config": {}
+}

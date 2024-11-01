@@ -1,0 +1,600 @@
+#pragma version 10
+
+smart_contracts.stress_testing.contract.StressTesting.approval_program:
+    txn ApplicationID
+    bnz main_entrypoint@2
+    callsub __init__
+
+main_entrypoint@2:
+    callsub __puya_arc4_router__
+    return
+
+
+// smart_contracts.stress_testing.contract.StressTesting.__puya_arc4_router__() -> uint64:
+__puya_arc4_router__:
+    proto 0 1
+    txn NumAppArgs
+    bz __puya_arc4_router___after_if_else@10
+    method "create(address,address,uint64,uint64,uint64)uint64"
+    method "start(address,(uint64,uint64,uint64,byte[32],byte[32],byte[64],address),pay)void"
+    method "end(address)(bool,uint64,uint64,uint64,uint64,uint64,uint64,address)"
+    method "record()void"
+    method "unused()uint64"
+    txna ApplicationArgs 0
+    match __puya_arc4_router___create_route@2 __puya_arc4_router___start_route@3 __puya_arc4_router___end_route@4 __puya_arc4_router___record_route@5 __puya_arc4_router___unused_route@6
+    int 0
+    retsub
+
+__puya_arc4_router___create_route@2:
+    txn OnCompletion
+    !
+    assert // OnCompletion is NoOp
+    txn ApplicationID
+    !
+    assert // is creating
+    txna ApplicationArgs 1
+    txna ApplicationArgs 2
+    txna ApplicationArgs 3
+    btoi
+    txna ApplicationArgs 4
+    btoi
+    txna ApplicationArgs 5
+    btoi
+    callsub create
+    byte 0x151f7c75
+    swap
+    concat
+    log
+    int 1
+    retsub
+
+__puya_arc4_router___start_route@3:
+    txn OnCompletion
+    !
+    assert // OnCompletion is NoOp
+    txn ApplicationID
+    assert // is not creating
+    txna ApplicationArgs 1
+    txna ApplicationArgs 2
+    txn GroupIndex
+    int 1
+    -
+    dup
+    gtxns TypeEnum
+    int pay
+    ==
+    assert // transaction type is pay
+    callsub start
+    int 1
+    retsub
+
+__puya_arc4_router___end_route@4:
+    txn OnCompletion
+    int DeleteApplication
+    ==
+    assert // OnCompletion is DeleteApplication
+    txn ApplicationID
+    assert // is not creating
+    txna ApplicationArgs 1
+    callsub end
+    byte 0x151f7c75
+    swap
+    concat
+    log
+    int 1
+    retsub
+
+__puya_arc4_router___record_route@5:
+    txn OnCompletion
+    !
+    assert // OnCompletion is NoOp
+    txn ApplicationID
+    assert // is not creating
+    callsub record
+    int 1
+    retsub
+
+__puya_arc4_router___unused_route@6:
+    txn OnCompletion
+    int DeleteApplication
+    ==
+    assert // OnCompletion is DeleteApplication
+    txn ApplicationID
+    assert // is not creating
+    callsub unused
+    byte 0x151f7c75
+    swap
+    concat
+    log
+    int 1
+    retsub
+
+__puya_arc4_router___after_if_else@10:
+    int 0
+    retsub
+
+
+// smart_contracts.stress_testing.contract.StressTesting.create(user_address: bytes, owner_address: bytes, stake: uint64, duration: uint64, duration_max: uint64) -> bytes:
+create:
+    proto 5 1
+    byte "user_address"
+    frame_dig -5
+    app_global_put
+    byte "owner_address"
+    frame_dig -4
+    app_global_put
+    byte "stake"
+    frame_dig -3
+    app_global_put
+    byte "duration"
+    frame_dig -2
+    app_global_put
+    byte "duration_max"
+    frame_dig -1
+    app_global_put
+    byte "round_ended"
+    int 100000000
+    app_global_put
+    byte "cnt_produced_blocks"
+    int 0
+    app_global_put
+    byte "total_stake_sum"
+    int 42000042
+    app_global_put
+    byte "cnt_total_stake_sum"
+    int 1
+    app_global_put
+    byte "state"
+    byte 0x01
+    app_global_put
+    byte "round_created"
+    global Round
+    app_global_put
+    int 0
+    byte "round_created"
+    app_global_get_ex
+    assert // check self.round_created exists
+    int 0
+    byte "duration_max"
+    app_global_get_ex
+    assert // check self.duration_max exists
+    +
+    byte "round_end_max"
+    swap
+    app_global_put
+    int 0
+    byte "duration"
+    app_global_get_ex
+    assert // check self.duration exists
+    int 0
+    byte "duration_max"
+    app_global_get_ex
+    assert // check self.duration_max exists
+    <
+    assert // Maximum end round must be larger than requested duration.
+    int 0
+    byte "duration"
+    app_global_get_ex
+    assert // check self.duration exists
+    int 1
+    >
+    assert // Duration is too short due to consensus delay.
+    global CurrentApplicationID
+    itob
+    retsub
+
+
+// smart_contracts.stress_testing.contract.StressTesting.start(user_address: bytes, key_reg_info: bytes, txn: uint64) -> void:
+start:
+    proto 3 0
+    txn Sender
+    global CreatorAddress
+    ==
+    assert // Can only be called by smart contract creator.
+    int 0
+    byte "state"
+    app_global_get_ex
+    assert // check self.state exists
+    byte 0x01
+    ==
+    assert // Cannot be called from other state than CREATED.
+    int 0
+    byte "user_address"
+    app_global_get_ex
+    assert // check self.user_address exists
+    frame_dig -3
+    ==
+    assert // User does not match the stress test user.
+    global Round
+    int 0
+    byte "duration"
+    app_global_get_ex
+    assert // check self.duration exists
+    +
+    byte "round_end"
+    swap
+    app_global_put
+    int 0
+    byte "round_end"
+    app_global_get_ex
+    assert // check self.round_end exists
+    int 0
+    byte "round_end_max"
+    app_global_get_ex
+    assert // check self.round_end_max exists
+    <
+    assert // Test was not started soon enough.
+    frame_dig -1
+    gtxns Receiver
+    global CurrentApplicationAddress
+    ==
+    assert // Transaction must be to this contract.
+    int 0
+    byte "stake"
+    app_global_get_ex
+    assert // check self.stake exists
+    frame_dig -1
+    gtxns Amount
+    ==
+    assert // Sent amount doesn't match the agreed one.
+    global Round
+    int 1
+    +
+    byte "round_start"
+    swap
+    app_global_put
+    int 0
+    byte "round_start"
+    app_global_get_ex
+    assert // check self.round_start exists
+    byte "last_block"
+    swap
+    app_global_put
+    frame_dig -2
+    extract 0 8 // on error: Index access is out of bounds
+    btoi
+    int 0
+    byte "round_created"
+    app_global_get_ex
+    assert // check self.round_created exists
+    dig 1
+    ==
+    assert
+    frame_dig -2
+    extract 8 8 // on error: Index access is out of bounds
+    btoi
+    int 0
+    byte "round_end_max"
+    app_global_get_ex
+    assert // check self.round_end_max exists
+    dig 1
+    ==
+    assert
+    frame_dig -2
+    extract 152 32 // on error: Index access is out of bounds
+    dup
+    global CurrentApplicationAddress
+    ==
+    assert
+    itxn_begin
+    frame_dig -2
+    extract 24 32 // on error: Index access is out of bounds
+    swap
+    frame_dig -2
+    extract 56 32 // on error: Index access is out of bounds
+    frame_dig -2
+    extract 16 8 // on error: Index access is out of bounds
+    btoi
+    frame_dig -2
+    extract 88 64 // on error: Index access is out of bounds
+    uncover 3
+    itxn_field Sender
+    itxn_field StateProofPK
+    itxn_field VoteKeyDilution
+    uncover 2
+    itxn_field VoteLast
+    uncover 2
+    itxn_field VoteFirst
+    itxn_field SelectionPK
+    itxn_field VotePK
+    int keyreg
+    itxn_field TypeEnum
+    int 0
+    itxn_field Fee
+    itxn_submit
+    byte "state"
+    byte 0x02
+    app_global_put
+    retsub
+
+
+// smart_contracts.stress_testing.contract.StressTesting.end(user_address: bytes) -> bytes:
+end:
+    proto 1 1
+    txn Sender
+    global CreatorAddress
+    ==
+    assert // Can only be called by smart contract creator.
+    int 0
+    byte "state"
+    app_global_get_ex
+    assert // check self.state exists
+    byte 0x02
+    ==
+    assert // Cannot be called from other state than LIVE.
+    byte "round_ended"
+    global Round
+    app_global_put
+    int 0
+    byte "owner_address"
+    app_global_get_ex
+    assert // check self.owner_address exists
+    frame_dig -1
+    ==
+    bz end_else_body@5
+    int 0
+    byte "round_ended"
+    app_global_get_ex
+    assert // check self.round_ended exists
+    int 0
+    byte "round_end"
+    app_global_get_ex
+    assert // check self.round_end exists
+    <
+    bz end_else_body@3
+    int 0
+    b end_after_if_else@9
+
+end_else_body@3:
+    int 1
+    b end_after_if_else@9
+
+end_else_body@5:
+    int 0
+    byte "round_ended"
+    app_global_get_ex
+    assert // check self.round_ended exists
+    int 0
+    byte "round_end"
+    app_global_get_ex
+    assert // check self.round_end exists
+    <
+    !
+    assert // This account is not allowed to terminate the test.
+    int 1
+
+end_after_if_else@9:
+    itxn_begin
+    global CreatorAddress
+    dup
+    itxn_field CloseRemainderTo
+    int 0
+    itxn_field Amount
+    itxn_field Receiver
+    int pay
+    itxn_field TypeEnum
+    int 0
+    itxn_field Fee
+    itxn_submit
+    int 0
+    byte "total_stake_sum"
+    app_global_get_ex
+    assert // check self.total_stake_sum exists
+    int 0
+    byte "cnt_total_stake_sum"
+    app_global_get_ex
+    assert // check self.cnt_total_stake_sum exists
+    /
+    byte 0x00
+    int 0
+    uncover 3
+    setbit
+    swap
+    itob
+    int 0
+    byte "cnt_produced_blocks"
+    app_global_get_ex
+    assert // check self.cnt_produced_blocks exists
+    itob
+    int 0
+    byte "round_start"
+    app_global_get_ex
+    assert // check self.round_start exists
+    itob
+    int 0
+    byte "round_end"
+    app_global_get_ex
+    assert // check self.round_end exists
+    itob
+    int 0
+    byte "round_ended"
+    app_global_get_ex
+    assert // check self.round_ended exists
+    itob
+    int 0
+    byte "stake"
+    app_global_get_ex
+    assert // check self.stake exists
+    itob
+    int 0
+    byte "user_address"
+    app_global_get_ex
+    assert // check self.user_address exists
+    uncover 7
+    uncover 7
+    concat
+    uncover 6
+    concat
+    uncover 5
+    concat
+    uncover 4
+    concat
+    uncover 3
+    concat
+    uncover 2
+    concat
+    swap
+    concat
+    retsub
+
+
+// smart_contracts.stress_testing.contract.StressTesting.record() -> void:
+record:
+    proto 0 0
+    int 0
+    byte "state"
+    app_global_get_ex
+    assert // check self.state exists
+    byte 0x02
+    ==
+    assert // Cannot be called from other state than LIVE.
+    global Round
+    int 0
+    byte "round_ended"
+    app_global_get_ex
+    assert // check self.round_ended exists
+    <
+    assert
+    global Round
+    int 0
+    byte "round_end"
+    app_global_get_ex
+    assert // check self.round_end exists
+    dig 1
+    >
+    assert // Blocks produced after test end shouldn't be counted.
+    int 0
+    byte "last_block"
+    app_global_get_ex
+    assert // check self.last_block exists
+    dig 1
+    <
+    assert // There is no new produced block to record.
+    int 0
+    byte "cnt_produced_blocks"
+    app_global_get_ex
+    assert // check self.cnt_produced_blocks exists
+    int 1
+    +
+    byte "cnt_produced_blocks"
+    swap
+    app_global_put
+    byte "last_block"
+    swap
+    app_global_put
+    int 0
+    byte "total_stake_sum"
+    app_global_get_ex
+    assert // check self.total_stake_sum exists
+    int 42000042
+    +
+    byte "total_stake_sum"
+    swap
+    app_global_put
+    int 0
+    byte "cnt_total_stake_sum"
+    app_global_get_ex
+    assert // check self.cnt_total_stake_sum exists
+    int 1
+    +
+    byte "cnt_total_stake_sum"
+    swap
+    app_global_put
+    retsub
+
+
+// smart_contracts.stress_testing.contract.StressTesting.unused() -> bytes:
+unused:
+    proto 0 1
+    txn Sender
+    global CreatorAddress
+    ==
+    assert // Can only be called by smart contract creator.
+    int 0
+    byte "state"
+    app_global_get_ex
+    assert // check self.state exists
+    byte 0x01
+    ==
+    assert // Cannot be called from other state than CREATED.
+    global Round
+    int 0
+    byte "duration"
+    app_global_get_ex
+    assert // check self.duration exists
+    +
+    int 0
+    byte "round_end_max"
+    app_global_get_ex
+    assert // check self.round_end_max exists
+    >
+    assert // Cannot claim the test as unused because there is still enough time to finish it.
+    itxn_begin
+    global CreatorAddress
+    dup
+    itxn_field CloseRemainderTo
+    int 0
+    itxn_field Amount
+    itxn_field Receiver
+    int pay
+    itxn_field TypeEnum
+    int 0
+    itxn_field Fee
+    itxn_submit
+    int 0
+    byte "stake"
+    app_global_get_ex
+    assert // check self.stake exists
+    itob
+    retsub
+
+
+// smart_contracts.stress_testing.contract.StressTesting.__init__() -> void:
+__init__:
+    proto 0 0
+    byte "user_address"
+    global ZeroAddress
+    app_global_put
+    byte "owner_address"
+    global ZeroAddress
+    app_global_put
+    byte "stake"
+    int 0
+    app_global_put
+    byte "duration"
+    int 0
+    app_global_put
+    byte "duration_max"
+    int 0
+    app_global_put
+    byte "round_created"
+    int 0
+    app_global_put
+    byte "round_start"
+    int 0
+    app_global_put
+    byte "round_end"
+    int 0
+    app_global_put
+    byte "round_ended"
+    int 0
+    app_global_put
+    byte "round_end_max"
+    int 0
+    app_global_put
+    byte "last_block"
+    int 0
+    app_global_put
+    byte "cnt_produced_blocks"
+    int 0
+    app_global_put
+    byte "total_stake_sum"
+    int 0
+    app_global_put
+    byte "cnt_total_stake_sum"
+    int 1
+    app_global_put
+    byte "state"
+    byte 0x00
+    app_global_put
+    retsub
