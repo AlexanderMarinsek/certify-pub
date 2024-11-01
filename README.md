@@ -4,7 +4,7 @@ On-chain credentials for node runners - a project for Algorand France hackathon.
 
 In addition to this repo, you might want to check out the [testnet deployment](https://certify-algorand.vercel.app/) and [slide deck](https://docs.google.com/presentation/d/1TDqm8NNFOITV3B9EiMyTiXJ8iR3VdNZQ/edit?usp=drive_link&ouid=104976776298600611318&rtpof=true&sd=true).
 
-*Please note that the terms "node runner", "node operator", and "validator" are used interchangeably. We are clarifying the correct terminology with the Algorand Fundation.*
+*Please note that the terms "node runner", "node operator", and "validator" are used interchangeably.*
 
 
 
@@ -16,11 +16,11 @@ Nodes form the backbone of blockchain technology. Their core tasks include relay
 
 ### Problem statement
 
-*Node operators* are often asked to provide certain guarantees about their nodes to potential clients, ranging from physical persons to large institutions. Node operators can ask an auditinc company to inspect and evaluate their nodes. The auditing companies that node operators comply with certain standards, such as [ISO/IEC 27001](https://en.wikipedia.org/wiki/ISO/IEC_27001), and issue certificates that attest this compliance. The node operator can then publicly display such certificates, for example, on their webpage.
+*Node operators* are often asked to provide certain guarantees about their nodes to potential clients, ranging from physical persons to large institutions. Node operators can ask an audit company to inspect and evaluate their nodes. The auditing companies that node operators comply with certain standards, such as [ISO/IEC 27001](https://en.wikipedia.org/wiki/ISO/IEC_27001), and issue certificates that attest to this compliance. The node operator can then publicly display such certificates, for example, on their webpage.
 
-*Clientes* usually select one or more node operators an array of different operators. The client has to put additional effor into finding the certificates of each node runner, before evaluating and comparing them. Moreover, these certificates could be issued by different auditing companies in their own format, making a level comparison harder for the client. Hence, selecting a node operator becomes a cumbersome task, consuming a significant amount of time and money.
+*Clientes* usually select one or more node operators an array of different operators. The client has to put additional effort into finding the certificates of each node runner, before evaluating and comparing them. Moreover, these certificates could be issued by different auditing companies in their own format, making a level comparison harder for the client. Hence, selecting a node operator becomes a cumbersome task, consuming a significant amount of time and money.
 
-Node opearators can be of *different sizes*, ranging from small private operators to large instutitional operators. The large cost of certification by auditing companies might prove to be a large burden for the smaller operators, keeping them from getting certified. We estimate that such operators are prepared to pay a few in the range of several or tens of Dollars, based on our initial market research.
+Node opearators can be of *different sizes*, ranging from small private operators to large institutional operators. The large cost of certification by auditing companies might prove to be a large burden for the smaller operators, keeping them from getting certified. We estimate that such operators are prepared to pay a few in the range of several or tens of Dollars, based on our initial market research.
 
 ### Solution
 
@@ -28,12 +28,13 @@ The Certify platform makes blockchain infrastructure audits more accessible. On 
 
 #### On-chain certification
 
-Certify enables traditional companies to issue their certificates on chain, making the certification process transparent and accessible to all. In addition, Certify aims to enable simple overviews of node operators and their certificates in order to save time for clients when searching for a node operator that will satisfy their needs.
+Certify enables traditional companies to issue their certificates on-chain, making the certification process transparent and accessible to all. In addition, Certify aims to enable simple overviews of node operators and their certificates in order to save time for clients when searching for a node operator that will satisfy their needs.
 
 #### Stress tests
 
-Certify allows node operators to request stress tests on their infrastructure. The test allocates a given stake to the node under test and includes it in consensus participation, while trackign its performance. The resulting performance is written on-chain in the form of a certificate, issued by Certify. 
+Certify allows node operators to request stress tests on their infrastructure by getting undercollateralized loans of the network's tokens. The test allocates the requested stake to the node under stress test and includes it in consensus participation, while tracking its performance. The resulting performance is written on-chain in the form of a certificate, issued by Certify. 
 
+![platform_overview](https://github.com/user-attachments/assets/aed1f40d-ea30-41a4-b985-f7186e81b188)
 
 
 ## Overview of the designed platform
@@ -53,17 +54,17 @@ The certification board is a central smart contract, deployed in a single instan
 
 #### Stress test
 
-The stress test is a smart contract that is spawned from the certification board once a stress test is requestes by a node operator. The stress test runs for a limited time, as indicated by the node operator. The stress test receives temporary funding from the certification board. The funded amount is used for staking during the duration of the test in order to collect the perfromance of the node operator. The state machine and functionality of the stress test is described in the [stress_testing_specs](projects/certify-contracts/docs/stress_testing_specs.md).
+The stress test is a smart contract that is spawned from the certification board once a stress test is requested by a node operator. The stress test runs for a limited time, as indicated by the node operator. The stress test receives temporary funding from the certification board. The funded amount is used for staking during the duration of the test in order to collect the performance of the node operator. The state machine and functionality of the stress test are described in the [stress_testing_specs](projects/certify-contracts/docs/stress_testing_specs.md).
 
 
 ### Front-end 
 
-The Certify fron-end is an abstraction layer between the on-chain smart contract core and the node operator or client. This is one in order to simplify certification issuance and review. Moreover, the front-end allows for scaling through additional features, such as sorting, recommendation, and analytics. A demo of the user interface can be found on (TestNet): [https://certify-algorand.vercel.app/](https://certify-algorand.vercel.app/) 
+The Certify front-end is an abstraction layer between the on-chain smart contract core and the node operator or client. This is one in order to simplify certification issuance and review. Moreover, the front-end allows for scaling through additional features, such as sorting, recommendation, and analytics. A demo of the user interface can be found on (TestNet): [https://certify-algorand.vercel.app/](https://certify-algorand.vercel.app/) 
 
 
 ### Stress test daemon
 
-The stress test daemon is run on the node under test in order to periodically request perfromance logging. To do this, the daemon periodically requests the stress test smart contract to check whether the tested node proposed the last block.
+The stress test daemon is run on the node under test in order to periodically request performance logging. To do this, the daemon periodically requests the stress test smart contract to check whether the tested node proposed the last block.
 
 
 ## Usage instructions
@@ -93,24 +94,24 @@ This can be done for example by going to https://lora.algokit.io/fund and select
 
 Certify smart contracts are deployed on the TestNet and the user interface is available at: [https://certify-algorand.vercel.app/](https://certify-algorand.vercel.app/)
 
-The procedures for issuing certificates and stress tests are the same as on the localnet. Note that requesting a stress test makes the deployed `cert_board` smart contract allocate part of its stake to the spawned `stress_test` for the duration of the test. The deployed `stress_test` has limited funding on the TestNet, so it can happen that all of its funds are occupied at a given time. This can be verified by checking the deployed `stress_test` smart contract, which has the ID `OLUWBJXZIOEPRHAWXSRU5NTSKI74VZFKOMO366C6ZN7X7TGPXFRKILIAHE` at the time of writing.
+The procedures for issuing certificates and stress tests are the same as on the localnet. Note that requesting a stress test makes the deployed `cert_board` smart contract allocate part of its stake to the spawned `stress_test` for the duration of the test. The deployed `stress_test` has limited funding on the TestNet, so it can happen that all of its funds are occupied at a given time. This can be verified by checking the deployed `cert_board` smart contract, which has app ID `727030069` and corresponding application address `OLUWBJXZIOEPRHAWXSRU5NTSKI74VZFKOMO366C6ZN7X7TGPXFRKILIAHE`. To prevent excessive borrowing of funds for test purposes, the amounts and durations are limited.
 
 
 ## Requesting a stress test
 
 A stress test can be requested by the node operator by opening the Certify front-end and selecting the stress test service. After connecting their wallet, the node operator will be requested to enter the stress test setup parameters:
-- Stake: amount of stake that is delegated (larger stake requires better node performance)
-- Test duration: the duration of the stress test, i.e., staking (the longer, the more statistically relevant)
-- Maximal duration: the maximal duration that the entire test can take, including the testing and the initialization.
+- `Stake`: amount of stake that is delegated (larger stake requires better node performance)
+- `Test duration`: the duration of the stress test, i.e., staking (the longer, the more statistically relevant)
+- `Maximal duration`: the maximal duration that the entire test can take, including the testing and the initialization.
 
-Next, the node operator should copy the displayed stress test contract ID and the mnemonic of their (hot) wallet to the daemon's config file ([daemon.config](projects/certify-stress-test-daemon/daemon.config)) and rung the daemon. RUntime information can be tracked through the daemon's log file ([daemon.log](projects/certify-stress-test-daemon/daemon.log)). Note that, util the contract is live, the daemon will report that the transaction was not successful. This is also the case in LocalNet until the block round progresses by at least one.
+Next, the node operator should copy the displayed stress test contract ID and the mnemonic of their (hot) wallet to the daemon's config file ([daemon.config](projects/certify-stress-test-daemon/daemon.config)) and run the daemon. Runtime information can be tracked through the daemon's log file ([daemon.log](projects/certify-stress-test-daemon/daemon.log)). Note that, until the contract is live, the daemon will report that the transaction was not successful. This is also the case in LocalNet until the block round progresses by at least one.
 
-Afterwards, the node operator is requested to generate a participation key for the stress test smart contract. This will allow the funds of the stress test smart contract to get staked through the node under test. The node operator can generate these keys using `algokit goal` and, once generated, submit the key required key parameters through the front-end. The stress test begins by submitting these partkey parameters. The page will now display the test's progress, updated each ten seconds.
+Afterwards, the node operator is requested to generate a participation key for the stress test smart contract. This will allow the funds of the stress test smart contract to get staked through the node under test. The node operator can generate these keys using `algokit goal` and, once generated, submit the key required key parameters through the front-end. The stress test begins by submitting these partkey parameters. The page will now display the test's progress, updated every ten seconds.
 
 
 ## Issuing a certificate
 
-An auditing company can issue a certificate for te desired node operator by going to the "attest" service. There, the auditing company can enter the node operator's (validator's) address and the certificate contents. In the current implementation, this is a free-form submition. We foresee standard-based templates in the update, which will provide better unity and convenience to the auditing company.
+An auditing company can issue a certificate for the desired node operator by going to the "attest" service. There, the auditing company can enter the node operator's (validator's) address and the certificate contents. In the current implementation, this is a free-form submission. We foresee standard-based templates in the update, which will provide better unity and convenience to the auditing companies.
 
 
 ## Certificate verification
