@@ -114,7 +114,7 @@ export const NavBar: React.FC<NavBarProps> = () => {
             </div>
             <div className="gap-3 text-gray-700 dark:text-gray-100 cursor-pointer hidden lg:flex">
               <GitHubLogoIcon
-                onClick={() => window.open('https://github.com/uhudo/igoprotect/tree/main?tab=readme-ov-file#overview', '_blank')}
+                onClick={() => window.open('https://github.com/AlexanderMarinsek/certify-pub', '_blank')}
                 style={{ width: '20px', height: '20px' }}
               />
               <TwitterLogoIcon
@@ -176,7 +176,7 @@ const MenuDrawer: React.FC<MenuDrawerProps> = ({ open, onOpenChange }) => {
             </div>
             <Separator className="m-2 w-auto" />
             <div
-              onClick={() => window.open('https://github.com/uhudo/igoprotect/tree/main?tab=readme-ov-file#overview', '_blank')}
+              onClick={() => window.open('https://github.com/AlexanderMarinsek/certify-pub', '_blank')}
               className="ml-2 flex items-center gap-x-3.5 py-2 px-2.5 bg-white text-sm text-gray-700 rounded-lg dark:bg-background dark:border dark:text-white hover:bg-gray-100 cursor-pointer"
             >
               <GitHubLogoIcon className="w-4" />
